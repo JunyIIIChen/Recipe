@@ -9,9 +9,12 @@ import android.view.View;
 import com.example.recipeass2.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-// test
+
 private ActivityMainBinding binding;
 
+
+
+// coooll
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,13 +26,10 @@ private ActivityMainBinding binding;
         // setContentView(R.layout.activity_main);
 
 
-        /**
-         * @Author Junyi Chen
-         * OnClickListener to the registration screen
-         */
+        // OnClickListener to the registration screen
         binding.registerButton.setOnClickListener(view1 -> {
-            Intent intent = new Intent(this, RegisterActivity.class);
-            startActivity(intent);
+            Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+            MainActivity.this.startActivity(intent);
         });
     }
 }
