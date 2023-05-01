@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "358039963601",
+    "project_id": "fir-android-d844c",
+    "storage_bucket": "fir-android-d844c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358039963601:android:daca7565f81732a7e842f0",
+        "android_client_info": {
+          "package_name": "com.example.recipeass2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358039963601-hdm1csslgjkinerfjbtgkbul3hk1ckq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxZwwQ5SwVPt19okQrCf72hBjx81L25bM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358039963601-hdm1csslgjkinerfjbtgkbul3hk1ckq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
