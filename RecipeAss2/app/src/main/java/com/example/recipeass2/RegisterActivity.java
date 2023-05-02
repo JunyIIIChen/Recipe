@@ -1,11 +1,11 @@
 package com.example.recipeass2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.recipeass2.databinding.ActivityRegisterBinding;
 
@@ -19,12 +19,6 @@ public class RegisterActivity extends AppCompatActivity {
         binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        /**
-         * @Author： Junyi Chen
-         * Create SP to store registered account and password
-         */
-
 
         binding.registerSubmitButton.setOnClickListener(view1 ->{
             String account = binding.registerAccount.getText().toString();
