@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
 
+import com.example.recipeass2.databinding.ActivityMainBinding;
 import com.example.recipeass2.model.Ingredient;
 import com.example.recipeass2.model.Repository;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -68,25 +69,26 @@ public class MainActivity extends AppCompatActivity {
                                                   startActivity(new Intent(MainActivity.this,
                                                           SignupActivity.class));
                                               }
-                                          }
-        Button registerButton =findViewById(R.id.signupButton);
-        registerButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,
-                SignupActivity.class))
-        );
+        });
+//        Button registerButton =findViewById(R.id.signupButton);
+//        registerButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,
+//                SignupActivity.class))
+//        );
         Button loginButton =findViewById(R.id.signInButton);
         loginButton.setOnClickListener(v -> {
             String txt_Email = emailEditText.getText().toString();
             String txt_Pwd = passwordEditText.getText().toString();
             loginUser(txt_Email,txt_Pwd);
-        Button loginButton = findViewById(R.id.signinButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String txt_Email = emailEditText.getText().toString();
-                String txt_Pwd = passwordEditText.getText().toString();
-                loginUser(txt_Email, txt_Pwd);
-            }
         });
+//        Button loginButton = findViewById(R.id.signinButton);
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String txt_Email = emailEditText.getText().toString();
+//                String txt_Pwd = passwordEditText.getText().toString();
+//                loginUser(txt_Email, txt_Pwd);
+//            }
+//        });
     }
 
     private void loginUser(String txt_email, String txt_pwd) {
