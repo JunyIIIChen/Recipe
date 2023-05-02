@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import com.example.recipeass2.model.Ingredient;
 import com.example.recipeass2.model.Repository;
@@ -31,11 +32,31 @@ public class MainActivity extends AppCompatActivity {
 
         customerCompletableFuture.toString();
     }
+    private ActivityMainBinding binding;
+    private AppBarConfiguration mAppBarConfiguration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-//FirebaseApp.initializeApp(this);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
+
+
+        // login test code
+//        binding.signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this,
+//                        HomeActivity.class);
+//                startActivity(intent);
+//        }});
+
+
+        //FirebaseApp.initializeApp(this);
+
+        // for test reason I annotate this part of code. Chen
+
         auth = FirebaseAuth.getInstance();
         EditText emailEditText = findViewById(R.id.emailEditText);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
@@ -48,7 +69,15 @@ public class MainActivity extends AppCompatActivity {
                                                           SignupActivity.class));
                                               }
                                           }
+        Button registerButton =findViewById(R.id.signupButton);
+        registerButton.setOnClickListener(v -> startActivity(new Intent(MainActivity.this,
+                SignupActivity.class))
         );
+        Button loginButton =findViewById(R.id.signInButton);
+        loginButton.setOnClickListener(v -> {
+            String txt_Email = emailEditText.getText().toString();
+            String txt_Pwd = passwordEditText.getText().toString();
+            loginUser(txt_Email,txt_Pwd);
         Button loginButton = findViewById(R.id.signinButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -2,4 +2,12 @@
     <string name="app_name">RecipeAss2</string>
     <string name="enterAccount">Enter your account</string>
     <string name="enterPassword">Enter your password</string>
+    <string name="registration">Registration</string>
+    <string name="please_enter_your_account">Please enter your account</string>
+    <string name="please_enter_your_password">Please enter your password</string>
+    <string name="please_confirm_your_password">Please confirm your password</string>
+    <string name="submit">Submit</string>
+    <string name="textview">TextView</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
