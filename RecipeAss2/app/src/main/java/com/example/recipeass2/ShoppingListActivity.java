@@ -43,4 +43,6 @@ public class ShoppingListActivity extends AppCompatActivity {
         db.shoppingItemDao().updateQuantity(itemId, newQuantity);
     }
 
+
+
 }
