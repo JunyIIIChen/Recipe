@@ -2,6 +2,7 @@ package com.example.recipeass2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -75,9 +77,28 @@ public class MainActivity extends AppCompatActivity {
 //                SignupActivity.class))
 //        );
         Button loginButton =findViewById(R.id.signInButton);
+//         String txt_Email;
+//        String txt_Pwd;
         loginButton.setOnClickListener(v -> {
-            String txt_Email = emailEditText.getText().toString();
-            String txt_Pwd = passwordEditText.getText().toString();
+            String txt_Email;
+            String txt_Pwd;
+            if(TextUtils.isEmpty(emailEditText.getText())) {
+                emailEditText.setError("Your message");
+                return;
+            }
+            else
+            {
+             txt_Email = emailEditText.getText().toString();
+            }
+            if(TextUtils.isEmpty(passwordEditText.getText())) {
+                passwordEditText.setError("Your message");
+                return;
+            }
+            else
+            {
+                txt_Pwd = emailEditText.getText().toString();
+            }
+
             loginUser(txt_Email,txt_Pwd);
         });
 //        Button loginButton = findViewById(R.id.signinButton);
