@@ -22,12 +22,14 @@ public class NearestShopActivity extends AppCompatActivity implements OnMapReady
 
     private GoogleMap mMap;
 
+    private final String CURRENT_SCREEN_NAME = "Nearest Shop";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNearestShopBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
+        binding.topBar.currentScreenName.setText(CURRENT_SCREEN_NAME);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
