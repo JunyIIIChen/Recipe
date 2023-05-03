@@ -7,15 +7,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.recipeass2.model.Ingredient;
-import com.example.recipeass2.model.IngredientShoppingItemDao;
+import com.example.recipeass2.dao.IngredientItemDao;
+import com.example.recipeass2.model.Item;
+import com.example.recipeass2.model.ItemWithIngredient;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {ShoppingItem.class, Ingredient.class}, version = 2)
+@Database(entities = {ShoppingItem.class, Ingredient.class, ItemWithIngredient.class, Item.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ShoppingItemDao shoppingItemDao();
-    public abstract IngredientShoppingItemDao ingredientShoppingItemDao();
+    public abstract IngredientItemDao ingredientShoppingItemDao();
     private static AppDatabase INSTANCE;
     //we create an ExecutorService with a fixed thread pool so we can later run
     //database operations asynchronously on a background thread.

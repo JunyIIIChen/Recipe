@@ -15,7 +15,7 @@ public interface ShoppingItemDao {
     @Query("SELECT * FROM shopping_items")
     List<ShoppingItem> getAllShoppingItems();
 
-    @Query("UPDATE shopping_items SET quantity = :newQuantity WHERE id = :itemId")
-    void updateQuantity(int itemId, int newQuantity);
+//    @Query("UPDATE shopping_items SET quantity = :newQuantity WHERE id = :itemId")
+//    void updateQuantity(int itemId, int newQuantity);
 
 }

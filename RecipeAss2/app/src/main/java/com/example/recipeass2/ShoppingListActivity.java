@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ShoppingListAdapter adapter;
+//    private ShoppingListAdapter adapter;
     private List<ShoppingItem> shoppingList;
 
     private AppDatabase db;
@@ -31,17 +31,17 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.shop_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ShoppingListAdapter(shoppingList, db);
-        recyclerView.setAdapter(adapter);
+//        adapter = new ShoppingListAdapter(shoppingList, db);
+//        recyclerView.setAdapter(adapter);
     }
 
     private void loadData() {
         shoppingList = db.shoppingItemDao().getAllShoppingItems();
     }
 
-    private void updateQuantity(int itemId, int newQuantity) {
-        db.shoppingItemDao().updateQuantity(itemId, newQuantity);
-    }
+//    private void updateQuantity(int itemId, int newQuantity) {
+//        db.shoppingItemDao().updateQuantity(itemId, newQuantity);
+//    }
 
 
 

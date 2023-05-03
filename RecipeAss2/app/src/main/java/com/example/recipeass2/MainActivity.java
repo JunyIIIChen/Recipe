@@ -24,17 +24,17 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
-    public void test() {
-        Repository repository = new Repository(getApplication());
-        repository.insert(new Ingredient("pumpkin", "xxx"));
-        CompletableFuture<Long> customerCompletableFuture =
-                repository.insertIngredientReturnId(new Ingredient("111", "xxx"));
-        customerCompletableFuture.thenApply(longVariable -> {
-            return longVariable;
-        });
-
-        customerCompletableFuture.toString();
-    }
+//    public void test() {
+//        Repository repository = new Repository(getApplication());
+//        repository.insert(new Ingredient("pumpkin", "xxx"));
+//        CompletableFuture<Long> customerCompletableFuture =
+//                repository.insertIngredientReturnId(new Ingredient("111", "xxx"));
+//        customerCompletableFuture.thenApply(longVariable -> {
+//            return longVariable;
+//        });
+//
+//        customerCompletableFuture.toString();
+//    }
     private ActivityMainBinding binding;
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         EditText emailEditText = findViewById(R.id.emailEditText);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
         Button registerButton = findViewById(R.id.signupButton);
-        test();
+//        test();
         registerButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {
