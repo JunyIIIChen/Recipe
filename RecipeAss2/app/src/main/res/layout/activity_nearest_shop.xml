@@ -1,38 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_nearest_shop"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:accessibilityHeading="false"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:rotationX="0">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="top"
+    android:orientation="vertical">
 
-    <LinearLayout
+  <!-- Other UI elements -->
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+    <include
         android:id="@+id/topBar"
+        layout="@layout/top_nav_bar"
+        android:layout_height="35dp"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:orientation="vertical">
-        
-    </LinearLayout>
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+  </LinearLayout>
+
+
+
+
+  <com.google.android.gms.maps.MapView
+      android:id="@+id/mapView"
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      app:layout_constraintHeight_percent="0.5"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/other_element"
+
+      />
+
+
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center_vertical"
+      android:layout_marginTop="10dp"
+      android:orientation="vertical"
+      android:id="@+id/shop_lists"
+      >
 
     <LinearLayout
-        android:id="@+id/map"
         android:layout_width="match_parent"
-        android:layout_height="277dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        android:orientation="vertical">
+      <Button
+          android:id="@+id/button2"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button3"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button4"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button5"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button6"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button7"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button8"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button9"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
+
+      <Button
+          android:id="@+id/button10"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Button" />
 
     </LinearLayout>
+  </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/shopLists"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="10pt"
-        android:layout_margin="10pt">
+  <!-- Other UI elements -->
 
-    </LinearLayout>
 </LinearLayout>
