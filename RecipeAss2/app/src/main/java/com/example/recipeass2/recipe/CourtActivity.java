@@ -1,4 +1,4 @@
-package com.example.recipeass2.Recipe;
+package com.example.recipeass2.recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.recipeass2.databinding.ActivityCourtBinding;
-import com.example.recipeass2.databinding.ActivityRecipeBinding;
 import com.example.recipeass2.model.Item;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class CourtActivity extends AppCompatActivity {
 

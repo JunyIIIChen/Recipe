@@ -1,4 +1,4 @@
-package com.example.recipeass2.model;
+package com.example.recipeass2.recipe.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.recipeass2.AppDatabase;
 import com.example.recipeass2.R;
-import com.example.recipeass2.ShoppingItem;
+import com.example.recipeass2.model.Item;
 
 import java.util.List;
 

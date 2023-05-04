@@ -1,4 +1,4 @@
-package com.example.recipeass2;
+package com.example.recipeass2.model;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

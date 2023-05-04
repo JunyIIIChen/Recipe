@@ -1,4 +1,4 @@
-package com.example.recipeass2;
+package com.example.recipeass2.report;
 
 import androidx.appcompat.app.AppCompatActivity;
 

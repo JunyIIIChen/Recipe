@@ -1,4 +1,4 @@
-package com.example.recipeass2.Recipe;
+package com.example.recipeass2.recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -10,15 +10,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.recipeass2.R;
-import com.example.recipeass2.ShoppingItem;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
 import com.example.recipeass2.model.Ingredient;
-import com.example.recipeass2.model.IngredientAdapter;
+import com.example.recipeass2.recipe.adapter.IngredientAdapter;
 import com.example.recipeass2.model.Ingredient_Item;
 import com.example.recipeass2.model.Item;
 import com.example.recipeass2.model.ItemWithIngredient;
-import com.example.recipeass2.repo.IngredientViewModel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +24,7 @@ import java.util.List;
 public class RecipeActivity extends AppCompatActivity {
 
     private ActivityRecipeBinding binding;
-    private IngredientViewModel ingredientViewModel;
+    private RecipeViewModel recipeViewModel;
 
     private IngredientAdapter ingredientAdapter;
 
@@ -39,7 +36,7 @@ public class RecipeActivity extends AppCompatActivity {
 
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ingredientViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(IngredientViewModel.class);
+        recipeViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(RecipeViewModel.class);
         courtItemList = new ArrayList<>();
         //test();
         initAdapter();
@@ -57,21 +54,21 @@ public class RecipeActivity extends AppCompatActivity {
 
     public void test() {
         Ingredient ingredient1 = new Ingredient("Creamy Roasted Pumpkin Soup", "xxx");
-        ingredientViewModel.insertIngredient(ingredient1);
+        recipeViewModel.insertIngredient(ingredient1);
         Ingredient ingredient2 = new Ingredient("toast", "xxx");
-        ingredientViewModel.insertIngredient(ingredient2);
+        recipeViewModel.insertIngredient(ingredient2);
         Item item1 = new Item("Garlic");
-        ingredientViewModel.insertItem(item1);
+        recipeViewModel.insertItem(item1);
         Item item2 = new Item("Milk");
-        ingredientViewModel.insertItem(item2);
+        recipeViewModel.insertItem(item2);
         Item item3 = new Item("Pumpkin");
-        ingredientViewModel.insertItem(item3);
+        recipeViewModel.insertItem(item3);
         ItemWithIngredient itemWithIngredient1 = new ItemWithIngredient("Creamy Roasted Pumpkin Soup", "Garlic");
-        ingredientViewModel.insertItemWithIngredient(itemWithIngredient1);
+        recipeViewModel.insertItemWithIngredient(itemWithIngredient1);
         ItemWithIngredient itemWithIngredient2 = new ItemWithIngredient("Creamy Roasted Pumpkin Soup", "Milk");
-        ingredientViewModel.insertItemWithIngredient(itemWithIngredient2);
+        recipeViewModel.insertItemWithIngredient(itemWithIngredient2);
         ItemWithIngredient itemWithIngredient3 = new ItemWithIngredient("Creamy Roasted Pumpkin Soup", "Pumpkin");
-        ingredientViewModel.insertItemWithIngredient(itemWithIngredient3);
+        recipeViewModel.insertItemWithIngredient(itemWithIngredient3);
 
 
     }
@@ -86,7 +83,7 @@ public class RecipeActivity extends AppCompatActivity {
     }
 
     public void test2() {
-        ingredientViewModel.getAllIngredientItem().observe(this, new Observer<List<Ingredient_Item>>() {
+        recipeViewModel.getAllIngredientItem().observe(this, new Observer<List<Ingredient_Item>>() {
             @Override
             public void onChanged(List<Ingredient_Item> ingredient_Items) {
                 Ingredient_Item temp = ingredient_Items.get(0);

@@ -80,33 +80,16 @@
                 android:backgroundTint="#FF6A07"
                 android:text="Return" />
         </LinearLayout>
+        <Button
+            android:id="@+id/recipeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recipe"
+            />
     </LinearLayout>
 
-    android:orientation="vertical">
-    <EditText
-        android:id="@+id/emailEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter your email"
-        android:inputType="textEmailAddress"
-        />
-    <EditText
-        android:id="@+id/passwordEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter a password"
-        android:inputType="textPassword"
-        />
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        />
-    <Button
-        android:id="@+id/recipeButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Recipe"
-        />
+
+
+
+
 </LinearLayout>

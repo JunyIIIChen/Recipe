@@ -1,4 +1,4 @@
-package com.example.recipeass2;
+package com.example.recipeass2.map;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.recipeass2.R;
 import com.example.recipeass2.databinding.ActivityNearestShopBinding;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;

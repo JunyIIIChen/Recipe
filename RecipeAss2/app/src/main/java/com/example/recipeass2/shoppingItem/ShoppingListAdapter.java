@@ -1,16 +1,18 @@
-package com.example.recipeass2;
+package com.example.recipeass2.shoppingItem;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import com.example.recipeass2.R;
+import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ShoppingListItemBinding;
+import com.example.recipeass2.model.ShoppingItem;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingItemViewHolder> {
 

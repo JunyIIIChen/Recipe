@@ -1,42 +1,41 @@
-package com.example.recipeass2.repo;
+package com.example.recipeass2.recipe;
 
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.recipeass2.ShoppingItem;
 import com.example.recipeass2.model.Ingredient;
 import com.example.recipeass2.model.Ingredient_Item;
 import com.example.recipeass2.model.Item;
 import com.example.recipeass2.model.ItemWithIngredient;
-import com.example.recipeass2.model.Repository;
+import com.example.recipeass2.repo.IngredientRepository;
 
 import java.util.List;
 
-public class IngredientViewModel extends AndroidViewModel{
+public class RecipeViewModel extends AndroidViewModel{
 
-    private Repository repository;
+    private IngredientRepository ingredientRepository;
 
 
     private LiveData<List<Ingredient_Item>> allIngredientItem;
 
-    public IngredientViewModel(Application application) {
+    public RecipeViewModel(Application application) {
         super(application);
-        repository = new Repository(application);
-        allIngredientItem = repository.getAllIngredientWithShopItem();
+        ingredientRepository = new IngredientRepository(application);
+        allIngredientItem = ingredientRepository.getAllIngredientWithShopItem();
     }
 
     public void insertIngredient(Ingredient ingredient) {
-        repository.insertIngredient(ingredient);
+        ingredientRepository.insertIngredient(ingredient);
     }
 
     public void insertItem(Item items) {
-        repository.insertItem(items);
+        ingredientRepository.insertItem(items);
     }
 
     public void insertItemWithIngredient(ItemWithIngredient itemWithIngredient) {
-        repository.insertItemWithIngredient(itemWithIngredient);
+        ingredientRepository.insertItemWithIngredient(itemWithIngredient);
     }
     public LiveData<List<Ingredient_Item>> getAllIngredientItem() {
         return allIngredientItem;

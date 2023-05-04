@@ -17,7 +17,7 @@
         android:theme="@style/Theme.RecipeAss2"
         tools:targetApi="31">
         <activity
-            android:name=".DataAnalysisActivity"
+            android:name=".report.DataAnalysisActivity"
             android:exported="false" />
 
         <meta-data
@@ -25,27 +25,26 @@
             android:value="AIzaSyAp6y2XwKXUYOC56UVR7AtoCN0iTWvuJs0" />
 
         <activity
-            android:name=".NearestShopActivity"
+            android:name=".map.NearestShopActivity"
             android:exported="false" />
         <activity
-            android:name=".Recipe.CourtActivity"
+            android:name=".recipe.CourtActivity"
             android:exported="false" />
         <activity
-            android:name=".Recipe.RecipeActivity"
+            android:name=".recipe.RecipeActivity"
             android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Recipe" -->
         <!-- android:exported="false" /> -->
         <activity
-            android:name=".ShoppingListActivity"
+            android:name=".shoppingItem.ShoppingListActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".auth.RegisterActivity"
             android:exported="false" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".SignupActivity" />
+        <activity android:name=".auth.SignupActivity" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
             android:exported="true"
             android:theme="@style/Theme.RecipeAss2.NoActionBar">
             <intent-filter>

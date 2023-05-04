@@ -1,4 +1,4 @@
-package com.example.recipeass2;
+package com.example.recipeass2.shoppingItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.os.Bundle;
-import android.view.View;
 
+import com.example.recipeass2.R;
+import com.example.recipeass2.model.ShoppingItem;
+import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ActivityShoppingListBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {

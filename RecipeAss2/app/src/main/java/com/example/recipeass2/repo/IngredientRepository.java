@@ -1,25 +1,28 @@
-package com.example.recipeass2.model;
+package com.example.recipeass2.repo;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.recipeass2.AppDatabase;
-import com.example.recipeass2.ShoppingItem;
+import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.dao.IngredientItemDao;
+import com.example.recipeass2.model.Ingredient;
+import com.example.recipeass2.model.Ingredient_Item;
+import com.example.recipeass2.model.Item;
+import com.example.recipeass2.model.ItemWithIngredient;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
-public class Repository {
+public class IngredientRepository {
 
     private IngredientItemDao ingredientItemDao;
 
 
     private LiveData<List<Ingredient_Item>> allIngredientWithShopItem;
 
-    public Repository(Application application) {
+    public IngredientRepository(Application application) {
         AppDatabase db = AppDatabase.getInstance(application);
         ingredientItemDao = db.ingredientShoppingItemDao();
         allIngredientWithShopItem = ingredientItemDao.getIngredientItems();

@@ -9,41 +9,18 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.ui.AppBarConfiguration;
 
-import com.example.recipeass2.model.Ingredient;
-import com.example.recipeass2.model.Repository;
+import com.example.recipeass2.auth.SignupActivity;
+import com.example.recipeass2.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.concurrent.CompletableFuture;
-
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth auth;
 
-//    public void test() {
-//        Repository repository = new Repository(getApplication());
-//        repository.insert(new Ingredient("pumpkin", "xxx"));
-//        CompletableFuture<Long> customerCompletableFuture =
-//                repository.insertIngredientReturnId(new Ingredient("111", "xxx"));
-//        customerCompletableFuture.thenApply(longVariable -> {
-//            return longVariable;
-//        });
-//
-//        customerCompletableFuture.toString();
-//    }
-//    public void test() {
-//        Repository repository = new Repository(getApplication());
-//        repository.insert(new Ingredient("pumpkin", "xxx"));
-//        CompletableFuture<Long> customerCompletableFuture =
-//                repository.insertIngredientReturnId(new Ingredient("111", "xxx"));
-//        customerCompletableFuture.thenApply(longVariable -> {
-//            return longVariable;
-//        });
-//
-//        customerCompletableFuture.toString();
-//    }
     private ActivityMainBinding binding;
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -56,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         EditText emailEditText = findViewById(R.id.emailEditText);
         EditText passwordEditText = findViewById(R.id.passwordEditText);
         Button registerButton = findViewById(R.id.signupButton);
-//        test();
         registerButton.setOnClickListener(new View.OnClickListener() {
                                               @Override
                                               public void onClick(View v) {

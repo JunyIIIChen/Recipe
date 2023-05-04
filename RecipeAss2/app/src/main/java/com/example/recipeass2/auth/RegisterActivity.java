@@ -1,4 +1,4 @@
-package com.example.recipeass2;
+package com.example.recipeass2.auth;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.recipeass2;
+package com.example.recipeass2.database;
 
 import android.content.Context;
 
@@ -6,6 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.recipeass2.model.ShoppingItem;
+import com.example.recipeass2.dao.ShoppingItemDao;
 import com.example.recipeass2.model.Ingredient;
 import com.example.recipeass2.dao.IngredientItemDao;
 import com.example.recipeass2.model.Item;
@@ -14,7 +16,7 @@ import com.example.recipeass2.model.ItemWithIngredient;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {ShoppingItem.class, Ingredient.class}, version = 1)
+
 @Database(entities = {ShoppingItem.class, Ingredient.class, ItemWithIngredient.class, Item.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ShoppingItemDao shoppingItemDao();
