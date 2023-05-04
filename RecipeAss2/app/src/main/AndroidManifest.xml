@@ -39,10 +39,10 @@
             android:name=".shoppingItem.ShoppingListActivity"
             android:exported="false" />
         <activity
-            android:name=".auth.RegisterActivity"
+            android:name=".login.RegisterActivity"
             android:exported="false" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".auth.SignupActivity" />
+        <activity android:name=".signup.SignupActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

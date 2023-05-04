@@ -1,4 +1,4 @@
-package com.example.recipeass2.auth;
+package com.example.recipeass2.signup;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.R;
-import com.example.recipeass2.recipe.RecipeActivity;
+import com.example.recipeass2.databinding.ActivityRecipeBinding;
+import com.example.recipeass2.databinding.ActivityRegisterBinding;
+import com.example.recipeass2.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,22 +23,21 @@ import com.google.firebase.auth.FirebaseAuth;
 //
 public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth auth;
+    private ActivitySignupBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
+        binding = ActivitySignupBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         auth = FirebaseAuth.getInstance();
-        Button registerButton=findViewById(R.id.addButton);
-        EditText emailEditText= findViewById(R.id.emailEditText);
-        EditText passwordEditText= findViewById(R.id.passwordEditText);
-        EditText checkPassword= findViewById(R.id.checkPassword);
-        registerButton.setOnClickListener(new View.OnClickListener() {
+        binding.addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email_txt = emailEditText.getText().toString();
+                String email_txt = binding.emailEditText.getText().toString();
                 String password_txt =
-                        passwordEditText.getText().toString();
-                String checkpassword_txt = checkPassword
+                        binding.passwordEditText.getText().toString();
+                String checkpassword_txt = binding.checkPassword
                        .getText().toString();
                 String msg = "";
                 if (TextUtils.isEmpty(email_txt) ||
