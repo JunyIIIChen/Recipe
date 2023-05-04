@@ -33,6 +33,20 @@ public class MainActivity extends AppCompatActivity {
 //
 //        customerCompletableFuture.toString();
 //    }
+//    public void test() {
+//        Repository repository = new Repository(getApplication());
+//        repository.insert(new Ingredient("pumpkin", "xxx"));
+//        CompletableFuture<Long> customerCompletableFuture =
+//                repository.insertIngredientReturnId(new Ingredient("111", "xxx"));
+//        customerCompletableFuture.thenApply(longVariable -> {
+//            return longVariable;
+//        });
+//
+//        customerCompletableFuture.toString();
+//    }
+    private ActivityMainBinding binding;
+    private AppBarConfiguration mAppBarConfiguration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

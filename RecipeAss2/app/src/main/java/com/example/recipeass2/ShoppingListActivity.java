@@ -16,6 +16,8 @@ import java.util.List;
 public class ShoppingListActivity extends AppCompatActivity {
     private ActivityShoppingListBinding binding;
     private ShoppingListAdapter adapter;
+    private RecyclerView recyclerView;
+//    private ShoppingListAdapter adapter;
     private List<ShoppingItem> shoppingList;
 
     private AppDatabase db;
@@ -35,15 +37,19 @@ public class ShoppingListActivity extends AppCompatActivity {
         binding.shopListRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ShoppingListAdapter(shoppingList, db);
         binding.shopListRecyclerview.setAdapter(adapter);
+        recyclerView = findViewById(R.id.shop_list_recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        adapter = new ShoppingListAdapter(shoppingList, db);
+//        recyclerView.setAdapter(adapter);
     }
 
     private void loadData() {
         shoppingList = db.shoppingItemDao().getAllShoppingItems();
     }
 
-    private void updateQuantity(int itemId, int newQuantity) {
-        db.shoppingItemDao().updateQuantity(itemId, newQuantity);
-    }
+//    private void updateQuantity(int itemId, int newQuantity) {
+//        db.shoppingItemDao().updateQuantity(itemId, newQuantity);
+//    }
 
 
 

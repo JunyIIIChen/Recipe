@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.recipeass2.Recipe.RecipeActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,6 +40,15 @@ public class SignupActivity extends AppCompatActivity {
                     String msg = "Password is too short";
                 } else
                     registerUser(email_txt, password_txt);
+            }
+        });
+
+        Button recipeButton=findViewById(R.id.recipeButton);
+        recipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignupActivity.this,
+                        RecipeActivity.class));
             }
         });
     }

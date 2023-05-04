@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Recipe"
-    android:orientation="vertical"
-    tools:ignore="Orientation">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/recipe_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="top"
-            android:text="Creamy Roasted Pumpkin Soup\n\n"
+            android:text="1\n\n"
             android:textColor="@android:color/black"
             android:textSize="26sp" />
 
@@ -27,108 +24,123 @@
             android:id="@+id/recipe_describe1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
-            android:text="Peeled and chopped into large chunks (or purchase it pre-cut)...\n\n"
+            android:text="1\n\n"
             android:textColor="@android:color/black"
             android:textSize="22sp" />
+
         <TextView
             android:id="@+id/recipe_describe2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_gravity="bottom"
             android:text="Add to shop list"
             android:textColor="@android:color/black"
             android:textSize="22sp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/item_list_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/list_item" />
+
+        <Button
+            android:id="@+id/button_goto_court"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="go to court"
+            android:textSize="24sp" />
+
     </LinearLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/ingredient_quantity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Garlic"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:layout_alignParentStart="true" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/ingredient_quantity"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="Garlic"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:layout_alignParentStart="true" />-->
 
-        <Button
-            android:id="@+id/button_increase"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="24sp"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
+    <!--        <Button-->
+    <!--            android:id="@+id/button_increase"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="+"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:layout_alignParentEnd="true" />-->
+    <!--    </RelativeLayout>-->
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/ingredient_quantity1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Milk"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:layout_alignParentStart="true" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/ingredient_quantity1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="Milk"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:layout_alignParentStart="true" />-->
 
-        <Button
-            android:id="@+id/button_increase1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="24sp"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--        <Button-->
+    <!--            android:id="@+id/button_increase1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="+"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:layout_alignParentEnd="true" />-->
+    <!--    </RelativeLayout>-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
 
-        <TextView
-            android:id="@+id/ingredient_quantity2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pumpkin"
-            android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:layout_alignParentStart="true" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/ingredient_quantity2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="Pumpkin"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:layout_alignParentStart="true" />-->
 
-        <Button
-            android:id="@+id/button_increase2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            android:textSize="24sp"
-            android:layout_alignParentEnd="true" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!--        <Button-->
+    <!--            android:id="@+id/button_increase2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="+"-->
+    <!--            android:textSize="24sp"-->
+    <!--            android:layout_alignParentEnd="true" />-->
+    <!--    </RelativeLayout>-->
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content">-->
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="nutrition facts"
-            android:textSize="15sp"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@id/button1" />
+    <!--        <Button-->
+    <!--            android:id="@+id/button1"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="nutrition facts"-->
+    <!--            android:textSize="15sp"-->
+    <!--            android:layout_alignParentStart="true"-->
+    <!--            android:layout_toStartOf="@id/button1" />-->
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="facebook launch"
-            android:textSize="15sp"
-            android:layout_alignParentEnd="true"
-            android:layout_toEndOf="@id/button2" />
+    <!--        <Button-->
+    <!--            android:id="@+id/button2"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="facebook launch"-->
+    <!--            android:textSize="15sp"-->
+    <!--            android:layout_alignParentEnd="true"-->
+    <!--            android:layout_toEndOf="@id/button2" />-->
 
-    </RelativeLayout>
+    <!--    </RelativeLayout>-->
+
 </LinearLayout>
