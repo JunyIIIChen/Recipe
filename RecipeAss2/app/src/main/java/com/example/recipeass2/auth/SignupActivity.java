@@ -29,30 +29,37 @@ public class SignupActivity extends AppCompatActivity {
         Button registerButton=findViewById(R.id.addButton);
         EditText emailEditText= findViewById(R.id.emailEditText);
         EditText passwordEditText= findViewById(R.id.passwordEditText);
+        EditText checkPassword= findViewById(R.id.checkPassword);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email_txt = emailEditText.getText().toString();
                 String password_txt =
                         passwordEditText.getText().toString();
+                String checkpassword_txt = checkPassword
+                       .getText().toString();
+                String msg = "";
                 if (TextUtils.isEmpty(email_txt) ||
                         TextUtils.isEmpty(password_txt)) {
-                    String msg = "Empty Username or Password";
+                    msg = "Empty Username or Password";
                 } else if (password_txt.length() < 6) {
-                    String msg = "Password is too short";
+                     msg = "Password is too short";
+                }else if(!password_txt.equals(checkpassword_txt)){
+                     msg = "password should be same";
                 } else
                     registerUser(email_txt, password_txt);
+                toastMsg(msg);
             }
         });
 
         Button recipeButton=findViewById(R.id.recipeButton);
-        recipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this,
-                        RecipeActivity.class));
-            }
-        });
+//        recipeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(SignupActivity.this,
+//                        RecipeActivity.class));
+//            }
+//        });
     }
     private void registerUser(String email_txt, String password_txt) {
 // To create username and password
