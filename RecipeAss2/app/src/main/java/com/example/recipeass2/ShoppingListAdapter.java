@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import com.example.recipeass2.databinding.ShoppingListItemBinding;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingItemViewHolder> {
 
@@ -32,32 +33,33 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     @Override
     public void onBindViewHolder(@NonNull ShoppingItemViewHolder holder, int position) {
         ShoppingItem item = shoppingList.get(position);
-        holder.itemName.setText(item.getName());
-        holder.itemQuantity.setText(String.valueOf(item.getQuantity()));
+        holder.binding.itemName.setText(item.getName());
+        holder.binding.itemQuantity.setText(String.valueOf(item.getQuantity()));
 
-        holder.buttonDecrease.setOnClickListener(new View.OnClickListener() {
+        holder.binding.buttonDecrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentQuantity = item.getQuantity();
                 if (currentQuantity > 0) {
                     currentQuantity--;
                     item.setQuantity(currentQuantity);
-                    holder.itemQuantity.setText(String.valueOf(currentQuantity));
+                    holder.binding.itemQuantity.setText(String.valueOf(currentQuantity));
                     updateQuantity(item.getId(), currentQuantity);
                 }
             }
         });
 
-        holder.buttonIncrease.setOnClickListener(new View.OnClickListener() {
+        holder.binding.buttonIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentQuantity = item.getQuantity();
                 currentQuantity++;
                 item.setQuantity(currentQuantity);
-                holder.itemQuantity.setText(String.valueOf(currentQuantity));
+                holder.binding.itemQuantity.setText(String.valueOf(currentQuantity));
                 updateQuantity(item.getId(), currentQuantity);
             }
-        });    }
+        });
+    }
 
     @Override
     public int getItemCount() {
@@ -65,18 +67,11 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
     }
 
     static class ShoppingItemViewHolder extends RecyclerView.ViewHolder {
-
-        TextView itemName;
-        TextView itemQuantity;
-        Button buttonDecrease;
-        Button buttonIncrease;
+        ShoppingListItemBinding binding;
 
         public ShoppingItemViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemName = itemView.findViewById(R.id.item_name);
-            itemQuantity = itemView.findViewById(R.id.item_quantity);
-            buttonDecrease = itemView.findViewById(R.id.button_decrease);
-            buttonIncrease = itemView.findViewById(R.id.button_increase);
+            binding = ShoppingListItemBinding.bind(itemView);
         }
     }
 

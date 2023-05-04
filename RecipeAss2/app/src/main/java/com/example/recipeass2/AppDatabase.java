@@ -12,7 +12,7 @@ import com.example.recipeass2.model.IngredientShoppingItemDao;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {ShoppingItem.class, Ingredient.class}, version = 2)
+@Database(entities = {ShoppingItem.class, Ingredient.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ShoppingItemDao shoppingItemDao();
     public abstract IngredientShoppingItemDao ingredientShoppingItemDao();

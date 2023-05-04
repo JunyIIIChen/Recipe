@@ -8,11 +8,13 @@ import androidx.room.Room;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.recipeass2.databinding.ActivityShoppingListBinding;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
+    private ActivityShoppingListBinding binding;
     private ShoppingListAdapter adapter;
     private List<ShoppingItem> shoppingList;
 
@@ -21,18 +23,18 @@ public class ShoppingListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_list);
+
+        binding = ActivityShoppingListBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "shopping_list_database").allowMainThreadQueries().build();
 
-
         loadData();
 
-        recyclerView = findViewById(R.id.shop_list_recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.shopListRecyclerview.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ShoppingListAdapter(shoppingList, db);
-        recyclerView.setAdapter(adapter);
+        binding.shopListRecyclerview.setAdapter(adapter);
     }
 
     private void loadData() {
