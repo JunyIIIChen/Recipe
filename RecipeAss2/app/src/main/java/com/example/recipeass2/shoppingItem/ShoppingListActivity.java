@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.recipeass2.R;
 import com.example.recipeass2.model.ShoppingItem;
@@ -23,6 +24,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private AppDatabase db;
 
+    //current screen name
+    private final String CURRENT_SCREEN_NAME = "Shopping list";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         db = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "shopping_list_database").allowMainThreadQueries().build();
 
+        //set current screen name
+        binding.topBar.currentScreenName.setText(CURRENT_SCREEN_NAME);
         loadData();
 
         binding.shopListRecyclerview.setLayoutManager(new LinearLayoutManager(this));
@@ -44,6 +50,37 @@ public class ShoppingListActivity extends AppCompatActivity {
 //        recyclerView.setAdapter(adapter);
     }
 
+
+    private void goBackPrevScreen(){
+        binding.topBar.goBackButton.setOnClickListener(view -> {
+            /**
+             *
+             ********  TO DO *************
+             *
+             * **/
+        });
+    }
+
+    private void clearShopList(){
+        binding.clearShopListButton.setOnClickListener(view -> {
+            /**
+             *
+             ********  TO DO *************
+             *
+             * **/
+        });
+    }
+
+    private void createShopList(){
+        binding.createShopListButton.setOnClickListener(view -> {
+            /**
+             *
+             ********  TO DO *************
+             *
+             * **/
+        });
+    }
+
     private void loadData() {
         shoppingList = db.shoppingItemDao().getAllShoppingItems();
     }
@@ -51,7 +88,6 @@ public class ShoppingListActivity extends AppCompatActivity {
 //    private void updateQuantity(int itemId, int newQuantity) {
 //        db.shoppingItemDao().updateQuantity(itemId, newQuantity);
 //    }
-
 
 
 }
