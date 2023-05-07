@@ -13,8 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.R;
-import com.example.recipeass2.databinding.ActivityRecipeBinding;
-import com.example.recipeass2.databinding.ActivityRegisterBinding;
 import com.example.recipeass2.databinding.ActivitySignupBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
