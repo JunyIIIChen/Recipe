@@ -3,8 +3,8 @@ package com.example.recipeass2.search;
 public class Recipe {
     private String title;
     private int id;
-    private String type;
-    private String imageUrl = "https://spoonacular.com/recipeImages/"+id+"-"+"240x150."+type;
+    private String imageType;
+
 
     public String getTitle() {
         return title;
@@ -21,18 +21,15 @@ public class Recipe {
         this.id = id;
     }
     public String getImageUrl() {
-        return imageUrl;
+        return "https://spoonacular.com/recipeImages/"+id+"-"+"240x150."+imageType;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
-    public String getType() {
-        return type;
+    public String getImageType() {
+        return imageType;
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.imageType = type;
     }
 }
