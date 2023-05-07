@@ -3,6 +3,7 @@ package com.example.recipeass2.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -68,6 +69,10 @@ FirebaseApp.initializeApp(this);
     }
 
     private void loginUser(String txt_email, String txt_pwd) {
+        if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_pwd)) {
+            toastMsg("Please enter both email and password");
+            return;
+        }
 // call the object and provide it with email id and password
         auth.signInWithEmailAndPassword(txt_email, txt_pwd)
                 .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
