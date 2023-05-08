@@ -1,4 +1,4 @@
-package com.example.recipeass2.shoppingItem;
+package com.example.recipeass2.shoppingList;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,18 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import com.example.recipeass2.R;
 import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ShoppingListItemBinding;
-import com.example.recipeass2.model.ShoppingItem;
 
 public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapter.ShoppingItemViewHolder> {
 
-    private List<ShoppingItem> shoppingList;
+    private List<ShoppingListItem> shoppingList;
     private AppDatabase db;
 
-    public ShoppingListAdapter(List<ShoppingItem> shoppingList, AppDatabase db) {
+    public ShoppingListAdapter(List<ShoppingListItem> shoppingList, AppDatabase db) {
         this.shoppingList = shoppingList;
         this.db = db;
     }
@@ -34,17 +34,17 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ShoppingItemViewHolder holder, int position) {
-        ShoppingItem item = shoppingList.get(position);
+        ShoppingListItem item = shoppingList.get(position);
         holder.binding.itemName.setText(item.getName());
-        holder.binding.itemQuantity.setText(String.valueOf(item.getQuantity()));
+        holder.binding.itemQuantity.setText(String.valueOf(item.getAmount()));
 
         holder.binding.buttonDecrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentQuantity = item.getQuantity();
+                int currentQuantity = (int) item.getAmount();
                 if (currentQuantity > 0) {
                     currentQuantity--;
-                    item.setQuantity(currentQuantity);
+                    item.setAmount(currentQuantity); // 更新item的amount属性
                     holder.binding.itemQuantity.setText(String.valueOf(currentQuantity));
                     updateQuantity(item.getId(), currentQuantity);
                 }
@@ -54,9 +54,9 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         holder.binding.buttonIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int currentQuantity = item.getQuantity();
+                int currentQuantity = (int) item.getAmount();
                 currentQuantity++;
-                item.setQuantity(currentQuantity);
+                item.setAmount(currentQuantity); // 更新item的amount属性
                 holder.binding.itemQuantity.setText(String.valueOf(currentQuantity));
                 updateQuantity(item.getId(), currentQuantity);
             }
@@ -77,7 +77,17 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
         }
     }
 
-    private void updateQuantity(int itemId, int newQuantity) {
-        db.shoppingItemDao().updateQuantity(itemId, newQuantity);
+    private void updateQuantity(int itemId, int newAmount) {
+        Executors.newSingleThreadExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                db.shoppingListItemDao().updateAmount(itemId, newAmount);
+            }
+        });
+    }
+
+    public void setShoppingList(List<ShoppingListItem> shoppingList) {
+        this.shoppingList = shoppingList;
+        notifyDataSetChanged();
     }
 }

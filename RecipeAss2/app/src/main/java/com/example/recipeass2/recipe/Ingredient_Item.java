@@ -1,8 +1,12 @@
-package com.example.recipeass2.model;
+package com.example.recipeass2.recipe;
 
 import androidx.room.Embedded;
 import androidx.room.Junction;
 import androidx.room.Relation;
+
+import com.example.recipeass2.model.Item;
+import com.example.recipeass2.model.ItemWithIngredient;
+import com.example.recipeass2.recipe.Ingredient;
 
 import java.util.List;
 

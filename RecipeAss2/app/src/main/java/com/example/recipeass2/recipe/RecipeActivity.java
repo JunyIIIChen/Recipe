@@ -1,33 +1,29 @@
 package com.example.recipeass2.recipe;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.load.model.GlideUrl;
 import com.example.recipeass2.R;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
-import com.example.recipeass2.model.Ingredient;
-import com.example.recipeass2.recipe.adapter.IngredientAdapter;
-import com.example.recipeass2.model.Ingredient_Item;
 import com.example.recipeass2.model.Item;
-import com.example.recipeass2.model.ItemWithIngredient;
 import com.example.recipeass2.search.Recipe;
 import com.example.recipeass2.search.SpoonacularApiService;
 
-import java.io.Serializable;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,6 +31,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.bumptech.glide.Glide;
+import com.example.recipeass2.shoppingList.ShoppingListActivity;
+import com.example.recipeass2.shoppingList.ShoppingListItem;
 
 public class RecipeActivity extends AppCompatActivity {
     private Recipe recipe;
@@ -54,6 +52,18 @@ public class RecipeActivity extends AppCompatActivity {
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        ingredientAdapter = new IngredientAdapter(new ArrayList<>());
+        binding.ingredientList.setAdapter(ingredientAdapter);
+        binding.ingredientList.setLayoutManager(new LinearLayoutManager(this));
+
+        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+        binding.addToShoppingListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToShoppingList();
+            }
+        });
+
         int recipeId = getIntent().getIntExtra("recipe_id", -1);
         if (recipeId != -1) {
             fetchRecipeData(recipeId);
@@ -63,17 +73,15 @@ public class RecipeActivity extends AppCompatActivity {
         }
     }
 
-    public void initAdapter() {
-        ingredientAdapter = new IngredientAdapter(new ArrayList<Item>(), courtItemList);
-        binding.ingredientList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-
-        binding.ingredientList.setLayoutManager(new LinearLayoutManager(this));
-        binding.ingredientList.setAdapter(ingredientAdapter);
-    }
-
     private void fetchRecipeData(int recipeId) {
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         SpoonacularApiService spoonacularApiService = retrofit.create(SpoonacularApiService.class);
@@ -86,20 +94,43 @@ public class RecipeActivity extends AppCompatActivity {
                     recipe = response.body();
                     displayRecipeData();
                 } else {
-                    // Handle the error when the response is not successful
+                    Log.e("RecipeActivity", "API Response not successful, code: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
-                // Handle the error when the API call fails
+                Log.e("RecipeActivity", "API call failed: " + t.getMessage());
+                Toast.makeText(RecipeActivity.this, "Failed to load recipe data. Please check your internet connection.", Toast.LENGTH_LONG).show();
             }
         });
     }
     private void displayRecipeData() {
         // Set recipe title
         binding.recipeName.setText(recipe.getTitle());
-        Glide.with(this).load(recipe.getImageUrl()).into(binding.recipeImage);
-        initAdapter();
+        Glide.with(this)
+                .load(recipe.getImageUrl())
+                .error(R.drawable.error_placeholder)
+                .into(binding.recipeImage);
+
+        if (recipe.getIngredients() != null) {
+            ingredientAdapter.setIngredientList(recipe.getIngredients());
+        }
+    }
+    private void addToShoppingList() {
+        if (recipe != null && recipe.getIngredients() != null) {
+            for (Ingredient ingredient : recipe.getIngredients()) {
+                ShoppingListItem shoppingListItem = new ShoppingListItem();
+                shoppingListItem.setName(ingredient.getName());
+                shoppingListItem.setUnit(ingredient.getUnit());
+                shoppingListItem.setAmount(ingredient.getAmount());
+                recipeViewModel.insertShoppingListItem(shoppingListItem);
+            }
+            Toast.makeText(this, "Ingredients added to shopping list.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ShoppingListActivity.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Failed to add ingredients to shopping list.", Toast.LENGTH_SHORT).show();
+        }
     }
 }

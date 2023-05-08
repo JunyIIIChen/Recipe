@@ -88,7 +88,7 @@ public class SearchRecipeActivity extends AppCompatActivity implements RecipeAda
     }
     public void onRecipeClick(Recipe recipe) {
         Intent intent = new Intent(SearchRecipeActivity.this, RecipeActivity.class);
-        intent.putExtra("recipe_id", recipe.getId()); // Pass the recipe ID or other information as required
+        intent.putExtra("recipe_id", recipe.getId()); // Pass the recipe ID
         startActivity(intent);
     }
 }

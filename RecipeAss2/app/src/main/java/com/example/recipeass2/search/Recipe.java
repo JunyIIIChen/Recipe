@@ -1,9 +1,14 @@
 package com.example.recipeass2.search;
 
+import com.example.recipeass2.recipe.Ingredient;
+
+import java.util.List;
+
 public class Recipe {
     private String title;
     private int id;
     private String imageType;
+    private List<Ingredient> extendedIngredients;
 
 
     public String getTitle() {
@@ -31,5 +36,12 @@ public class Recipe {
 
     public void setType(String type) {
         this.imageType = type;
+    }
+    public List<Ingredient> getIngredients() {
+        return extendedIngredients;
+    }
+
+    public void setIngredients(List<Ingredient> extendedIngredients) {
+        this.extendedIngredients = extendedIngredients;
     }
 }

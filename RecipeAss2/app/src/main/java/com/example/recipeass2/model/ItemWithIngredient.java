@@ -5,6 +5,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
+import com.example.recipeass2.recipe.Ingredient;
+
 import org.jetbrains.annotations.NotNull;
 
 @Entity(primaryKeys = {"ingredientName", "itemName"},
