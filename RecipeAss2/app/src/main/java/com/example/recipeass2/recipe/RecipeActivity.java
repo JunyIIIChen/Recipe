@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.example.recipeass2.R;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
+import com.example.recipeass2.facebook.ShareFacebookActivity;
 import com.example.recipeass2.model.Item;
 import com.example.recipeass2.search.Recipe;
 import com.example.recipeass2.search.SpoonacularApiService;
@@ -71,6 +72,12 @@ public class RecipeActivity extends AppCompatActivity {
             return;
             // Handle the error when there is no valid recipeId
         }
+        binding.shareToFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RecipeActivity.this, ShareFacebookActivity.class));
+            }
+        });
     }
 
     private void fetchRecipeData(int recipeId) {
