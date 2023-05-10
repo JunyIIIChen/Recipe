@@ -9,18 +9,22 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.recipeass2.databinding.ActivityShareFacebookBinding;
 import com.facebook.*;
 import com.facebook.AccessToken;
 import com.facebook.FacebookException;
@@ -43,26 +47,20 @@ import com.example.recipeass2.R;
 public class ShareFacebookActivity extends FragmentActivity {
 
     private static final String PERMISSION = "publish_actions";
-    private static final Location SEATTLE_LOCATION =
-            new Location("") {
-                {
-                    setLatitude(47.6097);
-                    setLongitude(-122.3331);
-                }
-            };
+
 
     private final String PENDING_ACTION_BUNDLE_KEY = "com.example.hellofacebook:PendingAction";
 
-    private Button postStatusUpdateButton;
-    private Button postPhotoButton;
-    private ProfilePictureView profilePictureView;
-    private TextView greeting;
+    private ActivityShareFacebookBinding binding;
+
     private PendingAction pendingAction = PendingAction.NONE;
     private boolean canPresentShareDialog;
     private boolean canPresentShareDialogWithPhotos;
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
     private ShareDialog shareDialog;
+
+//    private Bitmap image;
     private FacebookCallback<Sharer.Result> shareCallback =
             new FacebookCallback<Sharer.Result>() {
                 @Override
@@ -100,7 +98,7 @@ public class ShareFacebookActivity extends FragmentActivity {
 
     private enum PendingAction {
         NONE,
-        POST_PHOTO,
+
         POST_STATUS_UPDATE
     }
 
@@ -156,8 +154,8 @@ public class ShareFacebookActivity extends FragmentActivity {
             String name = savedInstanceState.getString(PENDING_ACTION_BUNDLE_KEY);
             pendingAction = PendingAction.valueOf(name);
         }
-
-        setContentView(R.layout.activity_share_facebook);
+        binding = ActivityShareFacebookBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         profileTracker =
                 new ProfileTracker() {
@@ -170,30 +168,27 @@ public class ShareFacebookActivity extends FragmentActivity {
                     }
                 };
 
-        profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
-        greeting = (TextView) findViewById(R.id.greeting);
 
-        postStatusUpdateButton = (Button) findViewById(R.id.postStatusUpdateButton);
-        postStatusUpdateButton.setOnClickListener(
+        binding.postStatusUpdateButton.setOnClickListener(
                 new View.OnClickListener() {
                     public void onClick(View view) {
                         onClickPostStatusUpdate();
                     }
                 });
 
-        postPhotoButton = (Button) findViewById(R.id.postPhotoButton);
-        postPhotoButton.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        onClickPostPhoto();
-                    }
-                });
+
 
         // Can we present the share dialog for regular links?
         canPresentShareDialog = ShareDialog.canShow(ShareLinkContent.class);
 
         // Can we present the share dialog for photos?
         canPresentShareDialogWithPhotos = ShareDialog.canShow(SharePhotoContent.class);
+        //byte[] byteArray = getIntent().getByteArrayExtra("share screen");
+        //image = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        if(TempPhoto.image != null)
+        {
+            binding.shareImage.setImageBitmap(TempPhoto.image);
+        }
     }
 
     @Override
@@ -225,17 +220,8 @@ public class ShareFacebookActivity extends FragmentActivity {
     private void updateUI() {
         boolean enableButtons = AccessToken.isCurrentAccessTokenActive();
 
-        postStatusUpdateButton.setEnabled(enableButtons || canPresentShareDialog);
-        postPhotoButton.setEnabled(enableButtons || canPresentShareDialogWithPhotos);
+        binding.postStatusUpdateButton.setEnabled(enableButtons);
 
-        Profile profile = Profile.getCurrentProfile();
-        if (enableButtons && profile != null) {
-            profilePictureView.setProfileId(profile.getId());
-            greeting.setText(getString(R.string.hello_user, profile.getFirstName()));
-        } else {
-            profilePictureView.setProfileId(null);
-            greeting.setText(null);
-        }
     }
 
     private void handlePendingAction() {
@@ -247,9 +233,7 @@ public class ShareFacebookActivity extends FragmentActivity {
         switch (previouslyPendingAction) {
             case NONE:
                 break;
-            case POST_PHOTO:
-                postPhoto();
-                break;
+
             case POST_STATUS_UPDATE:
                 postStatusUpdate();
                 break;
@@ -262,40 +246,25 @@ public class ShareFacebookActivity extends FragmentActivity {
 
     private void postStatusUpdate() {
         Profile profile = Profile.getCurrentProfile();
-        ShareLinkContent linkContent =
-                new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse("http://developers.facebook.com/docs/android"))
-                        .build();
-        if (canPresentShareDialog) {
-            shareDialog.show(linkContent);
-        } else if (profile != null && hasPublishPermission()) {
-            ShareApi.share(linkContent, shareCallback);
-        } else {
-            pendingAction = PendingAction.POST_STATUS_UPDATE;
+        if (TempPhoto.image != null) {
+            SharePhoto photo = new SharePhoto.Builder()
+                    .setBitmap(TempPhoto.image)
+                    .build();
+            SharePhotoContent content = new SharePhotoContent.Builder()
+                    .addPhoto(photo)
+                    .build();
+            if (canPresentShareDialog) {
+
+                shareDialog.show(content);
+            } else if (profile != null && hasPublishPermission()) {
+                ShareApi.share(content, shareCallback);
+            } else {
+                pendingAction = PendingAction.POST_STATUS_UPDATE;
+            }
         }
     }
 
-    private void onClickPostPhoto() {
-        performPublish(PendingAction.POST_PHOTO, canPresentShareDialogWithPhotos);
-    }
 
-    private void postPhoto() {
-        Bitmap image = BitmapFactory.decodeResource(this.getResources(), R.drawable.icon);
-        SharePhoto sharePhoto = new SharePhoto.Builder().setBitmap(image).build();
-        ArrayList<SharePhoto> photos = new ArrayList<>();
-        photos.add(sharePhoto);
-
-        SharePhotoContent sharePhotoContent = new SharePhotoContent.Builder().setPhotos(photos).build();
-        if (canPresentShareDialogWithPhotos) {
-            shareDialog.show(sharePhotoContent);
-        } else if (hasPublishPermission()) {
-            ShareApi.share(sharePhotoContent, shareCallback);
-        } else {
-            pendingAction = PendingAction.POST_PHOTO;
-            // We need to get new permissions, then complete the action when we get called back.
-            LoginManager.getInstance().logInWithPublishPermissions(this, Arrays.asList(PERMISSION));
-        }
-    }
 
     private boolean hasPublishPermission() {
         return AccessToken.isCurrentAccessTokenActive()

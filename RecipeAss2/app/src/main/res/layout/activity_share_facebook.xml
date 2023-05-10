@@ -28,39 +28,25 @@
             facebook:com_facebook_tooltip_mode="never_display"
             />
         <LinearLayout
-            android:layout_width="150dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             >
-            <TextView
-                android:id="@+id/greeting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_gravity="center"
-                android:textColor="#333"
-                android:textSize="18sp"/>
-            <com.facebook.login.widget.ProfilePictureView
-                android:id="@+id/profilePicture"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                facebook:com_facebook_preset_size="normal"/>
+
+            <ImageView
+                android:id="@+id/shareImage"
+                android:layout_width="fill_parent"
+                android:layout_height="500dp"
+                />
             <Button
                 android:id="@+id/postStatusUpdateButton"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Post Status Update"
                 />
-            <Button
-                android:id="@+id/postPhotoButton"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Post Photo"
-                />
+
 
         </LinearLayout>
     </LinearLayout>
