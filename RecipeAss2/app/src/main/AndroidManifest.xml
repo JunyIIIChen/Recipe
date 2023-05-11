@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,17 +16,15 @@
         android:theme="@style/Theme.RecipeAss2"
         tools:targetApi="31">
         <activity
-            android:name=".facebook.ShareFacebookActivity"
-            android:exported="false" />
-        <activity
             android:name=".search.SearchRecipeActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true" >
+<!--        <intent-filter>-->
+<!--            <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+<!--            <category android:name="android.intent.category.LAUNCHER" />-->
+<!--        </intent-filter>-->
+    </activity>
+
         <activity
             android:name=".report.DataAnalysisActivity"
             android:exported="false" />
@@ -44,56 +41,29 @@
             android:exported="false" />
         <activity
             android:name=".recipe.RecipeActivity"
-            android:exported="true" > <!-- <activity -->
+            android:exported="false" /> <!-- <activity -->
         <!-- android:name=".Recipe" -->
         <!-- android:exported="false" /> -->
-<!--        <intent-filter>-->
-<!--            <action android:name="android.intent.action.MAIN" />-->
-
-<!--            <category android:name="android.intent.category.LAUNCHER" />-->
-<!--        </intent-filter>-->
-        </activity>
         <activity
             android:name=".shoppingList.ShoppingListActivity"
             android:exported="false" />
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-        </activity> <!-- <activity android:name=".HomeActivity" /> -->
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+        <!--        <activity android:name=".HomeActivity" />-->
         <activity android:name=".signup.SignupActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.RecipeAss2.NoActionBar">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
         </activity>
-
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"
-            tools:replace="android:value"/>
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider947790126467695"
-            android:exported="true" />
-        <receiver android:name="com.example.recipeass2.facebook.ShareFacebookReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.facebook.platform.AppCallResultBroadcast" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

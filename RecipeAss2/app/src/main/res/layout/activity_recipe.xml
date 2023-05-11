@@ -52,16 +52,6 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="Add Ingredients to Shopping List"
-        app:layout_constraintBottom_toTopOf="@+id/share_to_facebook"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/share_to_facebook"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Share this recipe on facebook"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
