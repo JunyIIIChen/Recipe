@@ -20,6 +20,6 @@
         android:title="Analytics" />
 
     <item
-        android:id="@+id/nav_logout_fragment"
+        android:id="@+id/activity_login"
         android:title="Logout" />
 </menu>

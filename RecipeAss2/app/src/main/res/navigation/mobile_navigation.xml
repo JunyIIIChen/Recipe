@@ -24,9 +24,9 @@
         android:name="com.example.recipeass2.fragment.AnalyticsFragment"
         android:label="AnalyticsFragment" />
 
-    <fragment
-        android:id="@+id/nav_logout_fragment"
-        android:name="com.example.recipeass2.fragment.LogoutFragment"
-        android:label="LogoutFragment" />
+    <activity
+        android:id="@+id/activity_login"
+        android:name="com.example.recipeass2.login.LoginActivity"
+        android:label="LogoutActivity" />
 
 </navigation>
