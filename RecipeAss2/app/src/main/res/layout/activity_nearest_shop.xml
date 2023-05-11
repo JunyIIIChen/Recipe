@@ -36,76 +36,21 @@
       />
 
 
-
   <ScrollView
+      android:id="@+id/scrollView"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="center_vertical"
+      android:layout_height="0dp"
+      android:layout_weight="1"
       android:layout_marginTop="10dp"
-      android:orientation="vertical"
-      android:id="@+id/shop_lists"
-      >
+      android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shop_lists"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_margin="20dp" />
 
-      <Button
-          android:id="@+id/button2"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button3"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button4"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button5"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button6"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button7"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button8"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button9"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-      <Button
-          android:id="@+id/button10"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Button" />
-
-    </LinearLayout>
   </ScrollView>
 
   <!-- Other UI elements -->
