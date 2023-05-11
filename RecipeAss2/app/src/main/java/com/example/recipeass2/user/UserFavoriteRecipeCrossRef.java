@@ -2,8 +2,13 @@ package com.example.recipeass2.user;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Index;
 
-@Entity(tableName = "user_favorite_recipe_table", primaryKeys = {"userEmail", "recipeId"})
+@Entity(
+        tableName = "user_favorite_recipe_table",
+        primaryKeys = {"userEmail", "recipeId"},
+        indices = {@Index("recipeId")}
+)
 public class UserFavoriteRecipeCrossRef {
     @NonNull
     private String userEmail;
@@ -31,5 +36,4 @@ public class UserFavoriteRecipeCrossRef {
         this.recipeId = recipeId;
     }
 
-    // Constructor, getters and setters
 }

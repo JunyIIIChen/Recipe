@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        Button recipeButton=findViewById(R.id.recipeButton);
+      //  Button recipeButton=findViewById(R.id.recipeButton);
 //        recipeButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

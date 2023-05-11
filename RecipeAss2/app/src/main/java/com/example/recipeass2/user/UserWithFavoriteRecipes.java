@@ -7,13 +7,13 @@ import androidx.room.Relation;
 import java.util.List;
 
 public class UserWithFavoriteRecipes {
-    @Embedded
-    public User user;
+    @Embedded public User user;
     @Relation(
             parentColumn = "email",
-            entityColumn = "id",
-            associateBy = @Junction(UserFavoriteRecipeCrossRef.class)
+            entityColumn = "saved_recipe_id",
+            associateBy = @Junction(value = UserFavoriteRecipeCrossRef.class, parentColumn = "userEmail", entityColumn = "recipeId")
     )
     public List<FavoriteRecipe> favoriteRecipes;
 }
+
 
