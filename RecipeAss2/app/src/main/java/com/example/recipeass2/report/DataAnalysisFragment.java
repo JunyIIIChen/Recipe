@@ -1,12 +1,16 @@
 package com.example.recipeass2.report;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 
-import com.example.recipeass2.databinding.ActivityDataAnalysisBinding;
+import com.example.recipeass2.databinding.FragmentDataAnalysisBinding;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -16,19 +20,24 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataAnalysisActivity extends AppCompatActivity {
+public class DataAnalysisFragment extends Fragment {
 
-    private ActivityDataAnalysisBinding binding;
+    private FragmentDataAnalysisBinding binding;
 
     private final String CURRENT_SCREEN_NAME = "Data Report";
 
     private PieChart pieChart;
 
+    public DataAnalysisFragment() {
+        // Required empty public constructor
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding  = ActivityDataAnalysisBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = FragmentDataAnalysisBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
 
         //set current screen name to the top nav bar
         binding.topBar.currentScreenName.setText(CURRENT_SCREEN_NAME);
@@ -36,7 +45,7 @@ public class DataAnalysisActivity extends AppCompatActivity {
         pieChart = binding.pieChart;
         setPieChart();
 
-
+        return view;
     }
 
     private void setPieChart(){
