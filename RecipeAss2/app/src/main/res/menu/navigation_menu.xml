@@ -7,7 +7,7 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/nav_search_fragment"
+        android:id="@+id/nav_search_recipe_fragment"
         android:title="Search" />
 
 
