@@ -17,7 +17,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {ShoppingListItem.class, User.class, FavoriteRecipe.class, UserFavoriteRecipeCrossRef.class}, version = 1, exportSchema = false)
+@Database(entities = {ShoppingListItem.class, User.class, FavoriteRecipe.class, UserFavoriteRecipeCrossRef.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase INSTANCE;
 
@@ -39,6 +39,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "app_database")
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

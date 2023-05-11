@@ -11,4 +11,10 @@
         android:textSize="20sp"
         android:text="This is Home"
         android:gravity="center_horizontal" />
+    <Button
+        android:id="@+id/trigger_upload_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Trigger Upload"
+        android:onClick="triggerUpload"/>
 </LinearLayout>
