@@ -51,12 +51,82 @@
                 android:hint="Enter a password"
                 android:inputType="textPassword" />
 
+
+
             <EditText
                 android:id="@+id/checkPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="5pt"
                 android:hint="Confirm Password"
                 android:inputType="textPassword" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10pt"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5pt"
+                    android:textSize="20sp"
+                    android:text="Enter Address :" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/stateEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:hint="State"
+                        android:inputType="textPostalAddress" />
+
+                    <EditText
+                        android:id="@+id/cityEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:hint="City"
+                        android:inputType="textPostalAddress" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/streetEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:hint="Street"
+                        android:inputType="textPostalAddress" />
+
+                    <EditText
+                        android:id="@+id/postcodeEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:hint="Postcode"
+                        android:inputType="number" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -80,12 +150,6 @@
                 android:backgroundTint="#FF6A07"
                 android:text="Return" />
         </LinearLayout>
-        <Button
-            android:id="@+id/recipeButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Recipe"
-            />
     </LinearLayout>
 
 
