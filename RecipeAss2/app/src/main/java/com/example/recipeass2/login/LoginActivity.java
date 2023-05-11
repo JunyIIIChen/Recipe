@@ -80,7 +80,7 @@ FirebaseApp.initializeApp(this);
                     public void onSuccess(AuthResult authResult) {
                         String msg = "Login Successful";
                         toastMsg(msg);
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, SearchRecipeActivity.class));
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,14 +14,10 @@ import android.widget.Toast;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.example.recipeass2.R;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
-import com.example.recipeass2.facebook.ShareFacebookActivity;
-import com.example.recipeass2.facebook.TempPhoto;
 import com.example.recipeass2.model.Item;
 import com.example.recipeass2.search.Recipe;
 import com.example.recipeass2.search.SpoonacularApiService;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +43,7 @@ public class RecipeActivity extends AppCompatActivity {
     private IngredientAdapter ingredientAdapter;
 
     private List<Item> courtItemList;
-//    private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
-    private static final String API_KEY = "f64428d43bd44bea8b32872513a00730";
+    private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
     private static final String BASE_URL = "https://api.spoonacular.com/";
 
     @Override
@@ -58,23 +52,6 @@ public class RecipeActivity extends AppCompatActivity {
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.shareToFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TempPhoto.image = createBitmap(getWindow().getDecorView());
-//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//                image.compress(Bitmap.CompressFormat.PNG, 10, stream);
-//                byte[] byteArray = stream.toByteArray();
-                Intent intent = new Intent(RecipeActivity.this, ShareFacebookActivity.class);
-//                intent.putExtra("share screen", byteArray);
-//                try {
-//                    stream.close();
-//                } catch (IOException e) {
-//                    throw new RuntimeException(e);
-//                }
-                startActivity(intent);
-            }
-        });
         ingredientAdapter = new IngredientAdapter(new ArrayList<>());
         binding.ingredientList.setAdapter(ingredientAdapter);
         binding.ingredientList.setLayoutManager(new LinearLayoutManager(this));
@@ -94,7 +71,6 @@ public class RecipeActivity extends AppCompatActivity {
             return;
             // Handle the error when there is no valid recipeId
         }
-
     }
 
     private void fetchRecipeData(int recipeId) {
@@ -156,12 +132,5 @@ public class RecipeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Failed to add ingredients to shopping list.", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
-    private Bitmap createBitmap(View view) {
-        view.buildDrawingCache();
-        Bitmap bitmap = view.getDrawingCache();
-        return bitmap;
     }
 }

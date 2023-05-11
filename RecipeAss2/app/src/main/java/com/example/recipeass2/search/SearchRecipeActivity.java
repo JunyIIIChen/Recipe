@@ -26,8 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchRecipeActivity extends AppCompatActivity implements RecipeAdapter.OnRecipeClickListener{
     private ActivitySearchRecipeBinding binding;
     private RecipeAdapter recipeAdapter;
-//    private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
-    private static final String API_KEY = "f64428d43bd44bea8b32872513a00730";
+    private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
     private static final String BASE_URL = "https://api.spoonacular.com/";
 
     @Override
