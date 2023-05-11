@@ -9,24 +9,24 @@
         android:name="com.example.recipeass2.fragment.HomeFragment"
         android:label="HomeFragment" />
 
-    <fragment
-        android:id="@+id/nav_search_fragment"
-        android:name="com.example.recipeass2.fragment.SearchFragment"
-        android:label="SearchFragment" />
+    <activity
+        android:id="@+id/activity_search_recipe"
+        android:name="com.example.recipeass2.search.SearchRecipeActivity"
+        android:label="SearchActivity" />
 
-    <fragment
-        android:id="@+id/nav_shopping_list_fragment"
-        android:name="com.example.recipeass2.fragment.ShoppingListFragment"
-        android:label="ShopListFragment" />
+    <activity
+        android:id="@+id/activity_shopping_list"
+        android:name="com.example.recipeass2.shoppingList.ShoppingListActivity"
+        android:label="ShoppingListActivity" />
 
-    <fragment
-        android:id="@+id/nav_analytics_fragment"
-        android:name="com.example.recipeass2.fragment.AnalyticsFragment"
-        android:label="AnalyticsFragment" />
+    <activity
+        android:id="@+id/activity_data_analysis"
+        android:name="com.example.recipeass2.report.DataAnalysisActivity"
+        android:label="DataAnalysisActivity" />
 
-    <fragment
-        android:id="@+id/nav_logout_fragment"
-        android:name="com.example.recipeass2.fragment.LogoutFragment"
-        android:label="LogoutFragment" />
+    <activity
+        android:id="@+id/activity_login"
+        android:name="com.example.recipeass2.login.LoginActivity"
+        android:label="LogoutActivity" />
 
 </navigation>
