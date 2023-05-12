@@ -18,6 +18,7 @@ import com.example.recipeass2.Retrofit.SearchResponse;
 import com.example.recipeass2.database.UploadWorker;
 import com.example.recipeass2.databinding.HomeFragmentBinding;
 import com.example.recipeass2.viewmodel.SharedViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -55,11 +56,9 @@ public class HomeFragment extends Fragment {
         });
 
         retrofitInterface = RetrofitClient.getRetrofitService();
-        binding.btnSearch.setOnClickListener(new View.OnClickListener() {
-//            int recipeCount = 1;
-            @Override
-            public void onClick(View v) {
-                keyword = binding.editText.getText().toString();
+
+
+
                 Call<SearchResponse> callAsync =
                         retrofitInterface.customSearch(API_KEY);
                 //makes an async request & invokes callback methods when the response returns
@@ -73,7 +72,10 @@ public class HomeFragment extends Fragment {
                                 List<Recipes> list = response.body().getRecipes();
                                 //getting name from the object in the position 0
                                 String result = list.get(0).getTitle();
+                                String imageUrl = list.get(0).getImage();
                                 binding.tvResult.setText(result);
+                                // load image to imageview
+                                Picasso.get().load(imageUrl).into(binding.imageView);
 
 
                             } else {
@@ -87,8 +89,6 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT);
                     }
                 });
-            }
-        });
 
         return view;
     }
