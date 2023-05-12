@@ -20,6 +20,10 @@
         android:title="Analytics" />
 
     <item
+        android:id="@+id/nav_map_fragment"
+        android:title="Map" />
+
+    <item
         android:id="@+id/activity_login"
         android:title="Logout" />
 </menu>

@@ -4,6 +4,21 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/btnSearch"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvResult"/>
+
     <TextView
         android:id="@+id/text_message"
         android:layout_width="match_parent"
