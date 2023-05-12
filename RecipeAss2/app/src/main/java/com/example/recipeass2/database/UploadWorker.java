@@ -32,7 +32,8 @@ public class UploadWorker extends Worker {
 
         // Add or update user data
         for (User user : users) {
-            myRef.child(user.getEmail()).setValue(user); // Modify this line according to your User entity
+            String emailPath = user.getEmail().replace('.', ',');
+            myRef.child(emailPath).setValue(user);
         }
 
         return Result.success();

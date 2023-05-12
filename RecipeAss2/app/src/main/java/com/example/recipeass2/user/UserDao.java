@@ -28,8 +28,8 @@ public interface UserDao {
     @Query("SELECT * FROM user_table WHERE email = :email")
     LiveData<User> getUserByEmail(String email);
 
-
-
+    @Query("SELECT * FROM user_table WHERE email = :email")
+    User getUserByEmailDirect(String email);
 
     @Insert
     long insert(FavoriteRecipe favoriteRecipe); // This method returns the new rowId for the inserted item.
@@ -39,9 +39,6 @@ public interface UserDao {
 
     @Delete
     void delete(FavoriteRecipe favoriteRecipe);
-
-
-
 
     @Insert
     void insert(UserFavoriteRecipeCrossRef crossRef);

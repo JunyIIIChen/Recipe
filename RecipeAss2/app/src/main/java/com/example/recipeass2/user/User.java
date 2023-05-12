@@ -29,6 +29,22 @@ public class User {
         this.address = address;
     }
 
+    public User() {
+
+    }
+
+    public void setEmail(@NonNull String email) {
+        this.email = email;
+    }
+
+    public void setPassword(@NonNull String password) {
+        this.password = password;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @NonNull
     public String getEmail() {
         return email;
