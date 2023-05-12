@@ -2,6 +2,7 @@ package com.example.recipeass2.login;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -113,6 +114,13 @@ public class LoginActivity extends AppCompatActivity {
                             public void onSuccess(AuthResult authResult) {
                                 String msg = "Login Successful";
                                 toastMsg(msg);
+
+                                // Save user email
+                                SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("email", txt_email);
+                                editor.apply();
+
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             }
                         })

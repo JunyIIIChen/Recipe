@@ -4,17 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.recipeass2.R;
+import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
 import com.example.recipeass2.search.Recipe;
 import com.example.recipeass2.search.SpoonacularApiService;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -26,12 +29,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.bumptech.glide.Glide;
 import com.example.recipeass2.shoppingList.ShoppingListItem;
+import com.example.recipeass2.user.FavoriteRecipe;
+import com.example.recipeass2.user.UserDao;
+import com.example.recipeass2.user.UserFavoriteRecipeCrossRef;
 
 public class RecipeActivity extends AppCompatActivity {
     private Recipe recipe;
     private ActivityRecipeBinding binding;
     private RecipeViewModel recipeViewModel;
     private IngredientAdapter ingredientAdapter;
+
+    private UserDao userDao;
 
     private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
     private static final String BASE_URL = "https://api.spoonacular.com/";
@@ -41,6 +49,15 @@ public class RecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRecipeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Initialize userDao
+        userDao = AppDatabase.getDatabase(getApplicationContext()).userDao();
+        binding.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                likeRecipe();
+            }
+        });
 
         // Handle back button click
         binding.backButton.setOnClickListener(new View.OnClickListener() {
@@ -127,6 +144,26 @@ public class RecipeActivity extends AppCompatActivity {
             Toast.makeText(this, "Ingredients added to shopping list.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Failed to add ingredients to shopping list.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void likeRecipe() {
+        if (recipe != null) {
+            // Get user email
+            SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+            String userEmail = sharedPreferences.getString("email", null);
+            if (userEmail == null) {
+                Toast.makeText(this, "User not logged in.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            FavoriteRecipe favoriteRecipe = new FavoriteRecipe(recipe.getTitle(), recipe.getDishTypes().get(0), System.currentTimeMillis());
+            Executors.newSingleThreadExecutor().execute(() -> {
+                long id = userDao.insert(favoriteRecipe);
+                UserFavoriteRecipeCrossRef crossRef = new UserFavoriteRecipeCrossRef(userEmail, (int) id);
+                userDao.insert(crossRef);
+            });
+        } else {
+            Toast.makeText(this, "Failed to like the recipe.", Toast.LENGTH_SHORT).show();
         }
     }
 }

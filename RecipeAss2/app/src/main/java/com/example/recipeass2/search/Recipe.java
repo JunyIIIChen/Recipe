@@ -9,7 +9,15 @@ public class Recipe {
     private int id;
     private String imageType;
     private List<Ingredient> extendedIngredients;
+    private List<String> dishTypes;
 
+    public List<String> getDishTypes() {
+        return dishTypes;
+    }
+
+    public void setDishTypes(List<String> dishTypes) {
+        this.dishTypes = dishTypes;
+    }
 
     public String getTitle() {
         return title;

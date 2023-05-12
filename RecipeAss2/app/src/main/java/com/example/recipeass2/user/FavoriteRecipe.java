@@ -17,8 +17,11 @@ public class FavoriteRecipe {
     @ColumnInfo(name = "saved_recipe_type")
     private String type;
 
+    @ColumnInfo(name = "like_timestamp")
+    private long likeTimestamp;
+
     // Constructor, getters and setters
-    public FavoriteRecipe(String name, String type) {
+    public FavoriteRecipe(String name, String type, long likeTimestamp) {
         this.name = name;
         this.type = type;
     }
@@ -45,5 +48,13 @@ public class FavoriteRecipe {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public long getLikeTimestamp() {
+        return likeTimestamp;
+    }
+
+    public void setLikeTimestamp(long likeTimestamp) {
+        this.likeTimestamp = likeTimestamp;
     }
 }

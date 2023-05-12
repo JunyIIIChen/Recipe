@@ -5,8 +5,11 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.recipeass2.user.FavoriteRecipe;
 import com.example.recipeass2.user.User;
 import com.example.recipeass2.user.UserDao;
+import com.example.recipeass2.user.UserFavoriteRecipeCrossRef;
+import com.example.recipeass2.user.UserWithFavoriteRecipes;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,12 +31,19 @@ public class UploadWorker extends Worker {
 
         // Get the Firebase instance
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users");
+        DatabaseReference usersRef  = database.getReference("users");
 
         // Add or update user data
         for (User user : users) {
             String emailPath = user.getEmail().replace('.', ',');
-            myRef.child(emailPath).setValue(user);
+            usersRef .child(emailPath).setValue(user);
+
+            // Get the user's favorite recipes
+            UserWithFavoriteRecipes userWithFavoriteRecipes  = userDao.getUserWithFavoriteRecipesDirect(user.getEmail());
+            // Add or update the user's favorite recipes
+            for (FavoriteRecipe favoriteRecipe : userWithFavoriteRecipes.getFavoriteRecipes()) {
+                usersRef.child(emailPath).child("favoriteRecipes").child(String.valueOf(favoriteRecipe.getId())).setValue(favoriteRecipe);
+            }
         }
 
         return Result.success();

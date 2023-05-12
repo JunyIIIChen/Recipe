@@ -50,6 +50,8 @@ public interface UserDao {
     @Query("SELECT * FROM user_table WHERE email = :userEmail")
     LiveData<UserWithFavoriteRecipes> getUserWithFavoriteRecipes(String userEmail);
 
-
+    @Transaction
+    @Query("SELECT * FROM user_table WHERE email = :userEmail")
+    UserWithFavoriteRecipes getUserWithFavoriteRecipesDirect(String userEmail);
 }
 

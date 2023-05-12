@@ -7,6 +7,9 @@ public class Address {
 
     private String postcode;
 
+    public Address() {
+    }
+
     // Constructor, getters and setters
     public Address(String street, String city, String state, String postcode) {
         this.street = street;
