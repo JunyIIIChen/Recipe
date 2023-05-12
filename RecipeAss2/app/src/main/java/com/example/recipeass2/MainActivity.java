@@ -17,8 +17,15 @@ import androidx.work.WorkManager;
 
 import com.example.recipeass2.database.UploadWorker;
 import com.example.recipeass2.databinding.ActivityMainBinding;
+import com.example.recipeass2.search.Recipe;
+import com.example.recipeass2.search.RecipeSearchResponse;
 
 import java.util.concurrent.TimeUnit;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -54,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.appBar.toolbar,navController,
                 mAppBarConfiguration);
 
+        // work manager
         // Get now time
         Calendar now = Calendar.getInstance();
 
@@ -85,5 +93,4 @@ public class MainActivity extends AppCompatActivity {
         // Add to WorkManager
         WorkManager.getInstance(getApplicationContext()).enqueue(uploadWorkRequest);
     }
-
 }

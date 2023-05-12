@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.databinding.SearchRecipeFragmentBinding;
 import com.example.recipeass2.recipe.RecipeActivity;
 import com.example.recipeass2.search.Recipe;

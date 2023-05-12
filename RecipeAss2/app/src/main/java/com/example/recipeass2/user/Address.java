@@ -1,5 +1,7 @@
 package com.example.recipeass2.user;
 
+import androidx.room.Ignore;
+
 public class Address {
     private String street;
     private String city;
@@ -11,6 +13,7 @@ public class Address {
     }
 
     // Constructor, getters and setters
+    @Ignore
     public Address(String street, String city, String state, String postcode) {
         this.street = street;
         this.city = city;

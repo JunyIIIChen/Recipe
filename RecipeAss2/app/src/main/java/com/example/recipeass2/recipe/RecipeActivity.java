@@ -10,11 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.R;
 import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
 import com.example.recipeass2.search.Recipe;
-import com.example.recipeass2.search.SpoonacularApiService;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -28,6 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import com.bumptech.glide.Glide;
+import com.example.recipeass2.search.SpoonacularApiService;
 import com.example.recipeass2.shoppingList.ShoppingListItem;
 import com.example.recipeass2.user.FavoriteRecipe;
 import com.example.recipeass2.user.UserDao;

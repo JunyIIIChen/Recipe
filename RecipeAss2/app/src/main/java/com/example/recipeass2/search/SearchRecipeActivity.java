@@ -2,15 +2,13 @@ package com.example.recipeass2.search;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.EditText;
 
-import com.example.recipeass2.R;
+import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.databinding.ActivitySearchRecipeBinding;
 import com.example.recipeass2.recipe.RecipeActivity;
 
@@ -58,7 +56,7 @@ public class SearchRecipeActivity extends AppCompatActivity implements RecipeAda
     }
 
     private void searchRecipes(String query) {
-// Create a Retrofit instance for API requests
+        // Create a Retrofit instance for API requests
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

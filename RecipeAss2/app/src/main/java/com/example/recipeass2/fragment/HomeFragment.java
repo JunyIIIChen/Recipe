@@ -8,33 +8,33 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.recipeass2.Retrofit.Recipes;
-import com.example.recipeass2.Retrofit.RetrofitClient;
-import com.example.recipeass2.Retrofit.RetrofitInterface;
-import com.example.recipeass2.Retrofit.SearchResponse;
+import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.database.UploadWorker;
 import com.example.recipeass2.databinding.HomeFragmentBinding;
-import com.example.recipeass2.viewmodel.SharedViewModel;
-import com.squareup.picasso.Picasso;
+import com.example.recipeass2.home.HomeRecipeAdapter;
+import com.example.recipeass2.home.RecipeRandomSearchResponse;
+import com.example.recipeass2.search.Recipe;
+import com.example.recipeass2.search.RecipeSearchResponse;
+import com.example.recipeass2.search.SpoonacularApiService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeFragment extends Fragment {
 
     private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
-//    private static final String SEARCH_ID_cx = "8721745eed177489e";
-    private String keyword;
-    private RetrofitInterface retrofitInterface;
-
-    private SharedViewModel model;
     private HomeFragmentBinding binding;
+    private HomeRecipeAdapter homeRecipeAdapter;
 
     public HomeFragment() {
     }
@@ -46,6 +46,10 @@ public class HomeFragment extends Fragment {
         binding = HomeFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
+        // Set up the RecyclerView
+        homeRecipeAdapter = new HomeRecipeAdapter(new ArrayList<>());
+        binding.recipeRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recipeRecyclerView.setAdapter(homeRecipeAdapter);
 
         // Set up the upload button click handler
         binding.triggerUploadButton.setOnClickListener(new View.OnClickListener() {
@@ -55,40 +59,31 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        retrofitInterface = RetrofitClient.getRetrofitService();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.spoonacular.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        SpoonacularApiService spoonacularApiService = retrofit.create(SpoonacularApiService.class);
 
+        Call<RecipeRandomSearchResponse> callAsync = spoonacularApiService.customSearch(API_KEY,  10);
+        //makes an async request & invokes callback methods when the response returns
+        callAsync.enqueue(new Callback<RecipeRandomSearchResponse>() {
+            @Override
+            public void onResponse(Call<RecipeRandomSearchResponse> call, Response<RecipeRandomSearchResponse> response) {
+                if (response.isSuccessful()) {
+                    List<Recipe> list = response.body().getRecipes();
+                    homeRecipeAdapter.updateData(list);
+                } else {
+                    Log.i("Error ", "Response failed");
+                }
+            }
 
-                Call<SearchResponse> callAsync =
-                        retrofitInterface.customSearch(API_KEY);
-                //makes an async request & invokes callback methods when the response returns
-                callAsync.enqueue(new Callback<SearchResponse>() {
-                    @Override
-                    public void onResponse(Call<SearchResponse> call,
-                                           Response<SearchResponse> response) {
-
-                            if (response.isSuccessful()) {
-
-                                List<Recipes> list = response.body().getRecipes();
-                                //getting name from the object in the position 0
-                                String result = list.get(0).getTitle();
-                                String imageUrl = list.get(0).getImage();
-                                binding.tvResult.setText(result);
-                                // load image to imageview
-                                Picasso.get().load(imageUrl).into(binding.imageView);
-
-
-                            } else {
-                            Log.i("Error ", "Response failed");
-                        }
-                    }
-
-                    // MainActivity.this 这里的toast.makeText 报错了，改成了getContext 不一定对，有可能是要改成getfragment
-                    @Override
-                    public void onFailure(Call<SearchResponse> call, Throwable t) {
-                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT);
-                    }
-                });
+            @Override
+            public void onFailure(Call<RecipeRandomSearchResponse> call, Throwable t) {
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         return view;
     }

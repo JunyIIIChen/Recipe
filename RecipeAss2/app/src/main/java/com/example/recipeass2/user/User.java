@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
@@ -23,6 +24,7 @@ public class User {
     private Address address;
 
     // Constructor, getters and setters
+    @Ignore
     public User(@NonNull String email, @NonNull String password, Address address) {
         this.email = email;
         this.password = password;
