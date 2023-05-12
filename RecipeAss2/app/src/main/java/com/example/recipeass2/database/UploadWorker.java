@@ -5,6 +5,8 @@ import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
 
+import com.example.recipeass2.shoppingList.ShoppingListItem;
+import com.example.recipeass2.shoppingList.ShoppingListItemDao;
 import com.example.recipeass2.user.FavoriteRecipe;
 import com.example.recipeass2.user.User;
 import com.example.recipeass2.user.UserDao;
@@ -26,6 +28,9 @@ public class UploadWorker extends Worker {
         // Get the UserDao
         UserDao userDao = AppDatabase.getDatabase(getApplicationContext()).userDao();
 
+        // Get the ShoppingListItemDao
+        ShoppingListItemDao shoppingListItemDao = AppDatabase.getDatabase(getApplicationContext()).shoppingListItemDao();
+
         // Get the user data
         List<User> users = userDao.getAllUsers(); // Modify this line according to your UserDao methods
 
@@ -43,6 +48,13 @@ public class UploadWorker extends Worker {
             // Add or update the user's favorite recipes
             for (FavoriteRecipe favoriteRecipe : userWithFavoriteRecipes.getFavoriteRecipes()) {
                 usersRef.child(emailPath).child("favoriteRecipes").child(String.valueOf(favoriteRecipe.getId())).setValue(favoriteRecipe);
+            }
+
+            // Get the user's shopping list items
+            List<ShoppingListItem> shoppingListItems = shoppingListItemDao.getAllShoppingListItemsDirect(); // Modify this line according to your ShoppingListItemDao methods
+            // Add or update the user's shopping list items
+            for (ShoppingListItem item : shoppingListItems) {
+                usersRef.child(emailPath).child("shoppingList").child(String.valueOf(item.getId())).setValue(item);
             }
         }
 

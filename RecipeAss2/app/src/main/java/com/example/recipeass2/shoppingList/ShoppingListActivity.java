@@ -70,22 +70,10 @@ public class ShoppingListActivity extends AppCompatActivity {
                 });
     }
 
-
-    private void goBackPrevScreen(){
-        binding.topBar.goBackButton.setOnClickListener(view -> {
-            /**
-             *
-             ********  TO DO *************
-             *
-             * **/
-        });
-    }
-
     private void clearShopList(){
         binding.clearShopListButton.setOnClickListener(view -> {
             shoppingListViewModel.deleteAllShoppingListItems();
             Toast.makeText(this, "Shopping list cleared.", Toast.LENGTH_SHORT).show();
         });
     }
-
 }
