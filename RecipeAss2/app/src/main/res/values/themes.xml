@@ -12,15 +12,15 @@
         <!-- Customize your theme here. -->
 
 
-<!--        Theme.MaterialComponents.DayNight.DarkActionBar-->
+        <!--        Theme.MaterialComponents.DayNight.DarkActionBar-->
     </style>
 
     <style name="Theme.RecipeAss2.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    <style name="Theme.RecipeAss2.AppBarOverlay"
-        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="Theme.RecipeAss2.PopupOverlay"
-        parent="ThemeOverlay.MaterialComponents.Light" />
+
+    <style name="Theme.RecipeAss2.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.RecipeAss2.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
 </resources>
