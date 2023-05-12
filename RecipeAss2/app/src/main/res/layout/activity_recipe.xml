@@ -40,9 +40,8 @@
         android:layout_height="wrap_content"
         android:backgroundTint="#FF6A07"
         android:text="LIKE"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="290dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/recipe_ingredients_label"

@@ -102,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (user != null) {
                         // Insert the user data into Room database
                         Executors.newSingleThreadExecutor().execute(() -> {
-                            userDao.insert(user);
+                            userDao.insertOrUpdate(user);
                         });
                     }
                 }

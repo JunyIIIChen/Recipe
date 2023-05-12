@@ -24,6 +24,7 @@ public class FavoriteRecipe {
     public FavoriteRecipe(String name, String type, long likeTimestamp) {
         this.name = name;
         this.type = type;
+        this.likeTimestamp = likeTimestamp;
     }
 
     public int getId() {
