@@ -71,8 +71,8 @@ public class HomeFragment extends Fragment {
                             if (response.isSuccessful()) {
 
                                 List<Recipes> list = response.body().getRecipes();
-                                //getting snippet from the object in the position 0
-                                String result = list.get(0).getName();
+                                //getting name from the object in the position 0
+                                String result = list.get(0).getTitle();
                                 binding.tvResult.setText(result);
 
 
