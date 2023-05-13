@@ -7,41 +7,61 @@
     tools:context=".fragment.MapFragment">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="top"
         android:orientation="vertical">
 
-
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="250dp"
             app:layout_constraintHeight_percent="0.5"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/other_element"
+            app:layout_constraintBottom_toTopOf="@+id/other_element">
 
-            />
+            <com.google.android.gms.maps.MapView
+                android:id="@+id/mapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
+            <ProgressBar
+                android:id="@+id/mapProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone" />
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        </FrameLayout>
+
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:layout_marginTop="10dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/shop_lists"
+            <ScrollView
+                android:id="@+id/scrollView"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/shop_lists"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_margin="20dp" />
+
+            </ScrollView>
+
+            <ProgressBar
+                android:id="@+id/shopListProgressBar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_margin="20dp" />
+                android:layout_gravity="center"
+                android:visibility="gone" />
 
-        </ScrollView>
-
+        </FrameLayout>
 
     </LinearLayout>
 

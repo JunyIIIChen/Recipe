@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.Manifest;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -45,7 +46,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -69,6 +69,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
+
+    private ProgressBar progressBarMap; // Progress bar
+    private ProgressBar progressBarShop; // Progress bar
+
+
+
     private FusedLocationProviderClient fusedLocationClient;
 
     private LocationCallback locationCallback;
@@ -110,11 +116,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mapView = binding.mapView;
         mapView.onCreate(savedInstanceState);
+
+        progressBarMap = binding.mapProgressBar; //
+        progressBarMap.setVisibility(View.VISIBLE); // Show progress bar
+        progressBarShop = binding.shopListProgressBar;
+        progressBarShop.setVisibility(View.VISIBLE);
         mapView.getMapAsync(this);
 
 
-        setLocation();
 
+
+        setLocation();
 
         return binding.getRoot();
     }
@@ -146,6 +158,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        progressBarMap.setVisibility(View.GONE);
         requestLocationPermission();
     }
 
@@ -215,7 +228,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         if (location != null) {
 
 
-                            home = getLocationFromAddress(); // Latitude and longitude for 5 Little La Trobe St, Melbourne
+                            home = getLocationFromAddress();
 
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, 15));
 
@@ -258,6 +271,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 response -> {
                     try {
                         JSONArray results = response.getJSONArray("results");
+
+                        progressBarShop.setVisibility(View.GONE);
                         List<Supermarket> supermarkets = new ArrayList<>();
 
                         for (int i = 0; i < results.length(); i++) {
