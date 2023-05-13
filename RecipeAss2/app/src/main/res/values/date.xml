@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time_array">
+        <item>1 day</item>
+        <item>15 days</item>
+        <item>1 month</item>
+        <item>Half year</item>
+        <item>1 year</item>
+    </string-array>
+</resources>

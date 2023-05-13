@@ -13,7 +13,10 @@ import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.room.Database;
 
@@ -22,7 +25,9 @@ import com.example.recipeass2.R;
 import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.AnalyticsFragmentBinding;
 import com.example.recipeass2.user.FavoriteRecipe;
+import com.example.recipeass2.user.User;
 import com.example.recipeass2.user.UserDao;
+import com.example.recipeass2.user.UserFavoriteRecipeCrossRef;
 import com.example.recipeass2.user.UserWithFavoriteRecipes;
 import com.example.recipeass2.viewmodel.SharedViewModel;
 import com.github.mikephil.charting.charts.BarChart;
@@ -36,9 +41,12 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -50,10 +58,17 @@ public class AnalyticsFragment extends Fragment {
     private List<FavoriteRecipe> favoriteRecipes;
     private String userEmail;
     private Spinner chartTypeSpinner;
+    private Spinner dateSpinner;
+
+    private Calendar calendar;
+    private Date selectedDate;
+
 
     private BarChart barChart;
 
     private final String CURRENT_SCREEN_NAME = "Data Report";
+
+    private List<FavoriteRecipe> filteredRecipes;
 
     public AnalyticsFragment(){}
 
@@ -67,11 +82,17 @@ public class AnalyticsFragment extends Fragment {
         chartTypeSpinner = binding.chartTypeSpinner;
         setUpChartTypeSpinner();
 
+        dateSpinner = binding.dateSpinner;
+        setDateSpinner();
+
+
         // Get a reference to the UserDao
         userDao = AppDatabase.getDatabase(getContext()).userDao();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         userEmail = sharedPreferences.getString("email", "");
+
+
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -83,7 +104,7 @@ public class AnalyticsFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        setPieChart();
+                    updateCharts();
                     }
                 });
             }
@@ -96,7 +117,7 @@ public class AnalyticsFragment extends Fragment {
 
         pieChart = binding.pieChart;
         barChart = binding.barChart;
-        setPieChart();
+
 
         return view;
     }
@@ -107,15 +128,49 @@ public class AnalyticsFragment extends Fragment {
         binding = null;
     }
 
-    private void setPieChart(){
+//    private void setPieChart(){
+//        // Ensure favoriteRecipes is not null before attempting to iterate over it
+//        if (favoriteRecipes != null) {
+//            Map<String, Integer> typeCountMap = new HashMap<>();
+//            for (FavoriteRecipe recipe : favoriteRecipes) {
+//                String type = recipe.getType();
+//                int count = typeCountMap.getOrDefault(type, 0);
+//                typeCountMap.put(type, count + 1);
+//            }
+//            // Create a map to count the number of each type of recipe
+//            Map<String, Integer> recipeTypeCounts = new HashMap<>();
+//            for (FavoriteRecipe recipe : favoriteRecipes) {
+//                String type = recipe.getType();
+//                int count = recipeTypeCounts.containsKey(type) ? recipeTypeCounts.get(type) : 0;
+//                recipeTypeCounts.put(type, count + 1);
+//            }
+//
+//            // Create the pie chart entries
+//            List<PieEntry> pieEntries = new ArrayList<>();
+//            for (Map.Entry<String, Integer> entry : recipeTypeCounts.entrySet()) {
+//                pieEntries.add(new PieEntry(entry.getValue(), entry.getKey()));
+//            }
+//
+//            PieDataSet pieDataSet = new PieDataSet(pieEntries, "Pie Chart");
+//            PieData pieData = new PieData(pieDataSet);
+//
+//            // Increase the text size for labels
+//            pieDataSet.setValueTextSize(16f);
+//            // Increase the text size for legend
+//            pieChart.getLegend().setTextSize(16f);
+//            //set Colour
+//            pieDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+//
+//            pieChart.setData(pieData);
+//            pieChart.invalidate();
+//        } else {
+//            Log.d("AnalyticsFragment", "favoriteRecipes is null");
+//        }
+//    }
+
+    private void setPieChart(List<FavoriteRecipe> favoriteRecipes){
         // Ensure favoriteRecipes is not null before attempting to iterate over it
         if (favoriteRecipes != null) {
-            Map<String, Integer> typeCountMap = new HashMap<>();
-            for (FavoriteRecipe recipe : favoriteRecipes) {
-                String type = recipe.getType();
-                int count = typeCountMap.getOrDefault(type, 0);
-                typeCountMap.put(type, count + 1);
-            }
             // Create a map to count the number of each type of recipe
             Map<String, Integer> recipeTypeCounts = new HashMap<>();
             for (FavoriteRecipe recipe : favoriteRecipes) {
@@ -147,7 +202,7 @@ public class AnalyticsFragment extends Fragment {
         }
     }
 
-    private void setBarChart() {
+    private void setBarChart(List<FavoriteRecipe> favoriteRecipes) {
         if (favoriteRecipes != null) {
             Map<String, Float> typeCountMap = new HashMap<>();
             for (FavoriteRecipe recipe : favoriteRecipes) {
@@ -173,6 +228,71 @@ public class AnalyticsFragment extends Fragment {
         }
     }
 
+    private void setDateSpinner(){
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
+                R.array.time_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+// Apply the adapter to the spinner
+        dateSpinner.setAdapter(adapter);
+
+        dateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                calendar = Calendar.getInstance();
+                String selectedItem = adapterView.getItemAtPosition(i).toString();
+
+                // Depending on the selected item, add the correct amount of time
+                switch (selectedItem) {
+                    case "1 day":
+                        calendar.add(Calendar.DAY_OF_MONTH, -1);
+                        break;
+                    case "15 days":
+                        calendar.add(Calendar.DAY_OF_MONTH, -15);
+                        break;
+                    case "1 month":
+                        calendar.add(Calendar.MONTH, -1);
+                        break;
+                    case "Half year":
+                        calendar.add(Calendar.MONTH, -6);
+                        break;
+                    case "1 year":
+                        calendar.add(Calendar.YEAR, -1);
+                        break;
+                }
+
+                // Get the Date object
+                selectedDate = calendar.getTime();
+                updateCharts();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                binding.textView3.setText("");
+            }
+        });
+
+    }
+
+    private void updateCharts() {
+        if (selectedDate != null && favoriteRecipes != null) {
+            List<FavoriteRecipe> filteredRecipes = new ArrayList<>();
+            for (FavoriteRecipe recipe : favoriteRecipes) {
+                if (recipe.getLikeTimestamp() >= selectedDate.getTime()) {
+                    filteredRecipes.add(recipe);
+                }
+            }
+
+            setPieChart(filteredRecipes);
+            setBarChart(filteredRecipes);
+        }
+    }
+
+
+
+
+
     private void setUpChartTypeSpinner() {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
                 R.array.chart_types, android.R.layout.simple_spinner_item);
@@ -188,12 +308,12 @@ public class AnalyticsFragment extends Fragment {
                     case 0:
                         pieChart.setVisibility(View.VISIBLE);
                         barChart.setVisibility(View.GONE);
-                        setPieChart();
+                        setPieChart(favoriteRecipes);
                         break;
                     case 1:
                         pieChart.setVisibility(View.GONE);
                         barChart.setVisibility(View.VISIBLE);
-                        setBarChart();
+                        setBarChart(favoriteRecipes);
                         break;
                 }
             }
