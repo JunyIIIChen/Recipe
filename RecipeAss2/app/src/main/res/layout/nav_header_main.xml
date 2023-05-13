@@ -13,10 +13,12 @@
         android:layout_height="60dp"
         android:text="LocalEats"
         android:textSize="40dp"
+        android:textColor="@android:color/black"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:text="select from the menu" />
 </LinearLayout>

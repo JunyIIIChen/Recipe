@@ -51,12 +51,13 @@ public class SignupActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(email_txt) ||
                         TextUtils.isEmpty(password_txt)) {
                     msg = "Empty Username or Password";
-                } else if (password_txt.length() < 6) {
-                     msg = "Password is too short";
-                }else if(!password_txt.equals(checkpassword_txt)){
-                     msg = "password should be same";
-                } else
+                } else if (!isPasswordValid(password_txt)) {
+                    msg = "Password should contain >6 chars,at least 1 letters, 1 symbol.";
+                } else if (!password_txt.equals(checkpassword_txt)) {
+                    msg = "Passwords should be the same";
+                } else {
                     registerUser(email_txt, password_txt, street, city, state, postcode);
+                }
                 toastMsg(msg);
             }
         });
@@ -96,6 +97,31 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
     public void toastMsg(String message){
-        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show();
+    }
+
+    private boolean isPasswordValid(String password) {
+        if (password.length() <= 6) {
+            return false;
+        }
+
+        boolean hasLetter = false;
+        boolean hasSymbol = false;
+
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+
+            if (Character.isLetter(c)) {
+                hasLetter = true;
+            } else if (!Character.isDigit(c)) {
+                hasSymbol = true;
+            }
+
+            if (hasLetter && hasSymbol) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

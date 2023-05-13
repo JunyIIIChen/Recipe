@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
             toastMsg("Please enter both email and password");
             return;
         }
+
         // Get the UserDao
         UserDao userDao = AppDatabase.getDatabase(getApplicationContext()).userDao();
 
@@ -147,4 +148,6 @@ public class LoginActivity extends AppCompatActivity {
     private void toastMsg(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
