@@ -12,13 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
-import com.example.recipeass2.MainActivity;
-import com.example.recipeass2.database.UploadWorker;
+import com.example.recipeass2.workManager.UploadWorker;
 import com.example.recipeass2.databinding.HomeFragmentBinding;
 import com.example.recipeass2.home.HomeRecipeAdapter;
 import com.example.recipeass2.home.RecipeRandomSearchResponse;
 import com.example.recipeass2.search.Recipe;
-import com.example.recipeass2.search.RecipeSearchResponse;
 import com.example.recipeass2.search.SpoonacularApiService;
 
 import java.util.ArrayList;

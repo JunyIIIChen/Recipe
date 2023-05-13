@@ -23,9 +23,6 @@
         <activity
             android:name=".facebook.ShareFacebookActivity"
             android:exported="false" />
-        <activity
-            android:name=".search.SearchRecipeActivity"
-            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -34,9 +31,7 @@
         <activity
             android:name=".recipe.RecipeActivity"
             android:exported="false" />
-        <activity
-            android:name=".shoppingList.ShoppingListActivity"
-            android:exported="false" />
+
         <activity
             android:name=".login.LoginActivity"
             android:exported="true">
@@ -49,6 +44,7 @@
 
         <activity android:name=".signup.SignupActivity" />
 
+        <service android:name=".workManager.WorkManagerService" />
 
         <activity
             android:name=".MainActivity"
@@ -60,13 +56,16 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"
             tools:replace="android:value"/>
+
         <meta-data
             android:name="com.facebook.sdk.ClientToken"
             android:value="@string/facebook_client_token" />
+
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider947790126467695"
             android:exported="true" />
+
         <receiver android:name="com.example.recipeass2.facebook.ShareFacebookReceiver"
             android:exported="false">
             <intent-filter>

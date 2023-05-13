@@ -1,6 +1,6 @@
 package com.example.recipeass2;
 
-import android.icu.util.Calendar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -10,22 +10,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.work.Constraints;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
 
-import com.example.recipeass2.database.UploadWorker;
 import com.example.recipeass2.databinding.ActivityMainBinding;
-import com.example.recipeass2.search.Recipe;
-import com.example.recipeass2.search.RecipeSearchResponse;
-
-import java.util.concurrent.TimeUnit;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import com.example.recipeass2.workManager.WorkManagerService;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -62,35 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 mAppBarConfiguration);
 
         // work manager
-        // Get now time
-        Calendar now = Calendar.getInstance();
-
-        // Get target time 10:00
-        Calendar tenOClock = Calendar.getInstance();
-        tenOClock.set(Calendar.HOUR_OF_DAY, 10);
-        tenOClock.set(Calendar.MINUTE, 0);
-        tenOClock.set(Calendar.SECOND, 0);
-
-        if (now.after(tenOClock)) {
-            tenOClock.add(Calendar.DATE, 1);
-        }
-
-        // Calculate time to 10:00
-        long delay = tenOClock.getTimeInMillis() - now.getTimeInMillis();
-
-        // Set Constraints
-        Constraints constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build();
-
-        // Create and set PeriodicWorkRequest
-        PeriodicWorkRequest uploadWorkRequest =
-                new PeriodicWorkRequest.Builder(UploadWorker.class, 24, TimeUnit.HOURS)
-                        .setInitialDelay(delay, TimeUnit.MILLISECONDS)
-                        .setConstraints(constraints)
-                        .build();
-
-        // Add to WorkManager
-        WorkManager.getInstance(getApplicationContext()).enqueue(uploadWorkRequest);
+        Intent intent = new Intent(this, WorkManagerService.class);
+        startService(intent);
     }
 }
