@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +40,13 @@ public class ShoppingListActivity extends AppCompatActivity {
         binding = ActivityShoppingListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Get the current user's email
+        SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+        String userEmail = sharedPreferences.getString("email", "");
+
+        // Initialize ViewModel
+        shoppingListViewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
+
         db = Room.databaseBuilder(getApplicationContext(),
                         AppDatabase.class, "shopping_list_database")
                         .fallbackToDestructiveMigration()
@@ -54,8 +62,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         adapter = new ShoppingListAdapter(new ArrayList<>(), db);
         binding.shopListRecyclerview.setAdapter(adapter);
 
-        // Observe shopping list items
-        shoppingListViewModel.getAllShoppingListItems().observe(this, new Observer<List<ShoppingListItem>>() {
+        // Observe shopping list items for the current user
+        shoppingListViewModel.getShoppingListItemsForUser(userEmail).observe(this, new Observer<List<ShoppingListItem>>() {
             @Override
             public void onChanged(List<ShoppingListItem> shoppingListItems) {
                 adapter.notifyDataSetChanged();

@@ -156,11 +156,16 @@ public class RecipeActivity extends AppCompatActivity {
     }
     private void addToShoppingList() {
         if (recipe != null && recipe.getIngredients() != null) {
+            // Get the current user's email
+            SharedPreferences sharedPreferences = getSharedPreferences("user_info", MODE_PRIVATE);
+            String userEmail = sharedPreferences.getString("email", "");
+
             for (Ingredient ingredient : recipe.getIngredients()) {
                 ShoppingListItem shoppingListItem = new ShoppingListItem();
                 shoppingListItem.setName(ingredient.getName());
                 shoppingListItem.setUnit(ingredient.getUnit());
                 shoppingListItem.setAmount(ingredient.getAmount());
+                shoppingListItem.setUserEmail(userEmail);
                 recipeViewModel.insertShoppingListItem(shoppingListItem);
             }
             Toast.makeText(this, "Ingredients added to shopping list.", Toast.LENGTH_SHORT).show();

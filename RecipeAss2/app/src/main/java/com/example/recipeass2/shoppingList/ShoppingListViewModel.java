@@ -29,4 +29,12 @@ public class ShoppingListViewModel extends AndroidViewModel {
     public void deleteAllShoppingListItems() {
         repository.deleteAllShoppingListItems();
     }
+
+    public LiveData<List<ShoppingListItem>> getShoppingListItemsForUser(String userEmail) {
+        return repository.getShoppingListItemsForUser(userEmail);
+    }
+
+    public void deleteAllShoppingListItemsForUser(String userEmail) {
+        repository.deleteAllShoppingListItemsForUser(userEmail);
+    }
 }

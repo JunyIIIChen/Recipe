@@ -44,7 +44,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                 int currentQuantity = (int) item.getAmount();
                 if (currentQuantity > 0) {
                     currentQuantity--;
-                    item.setAmount(currentQuantity); // 更新item的amount属性
+                    item.setAmount(currentQuantity);
                     holder.binding.itemQuantity.setText(String.valueOf(currentQuantity));
                     updateQuantity(item.getId(), currentQuantity);
                 }
@@ -56,7 +56,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
             public void onClick(View v) {
                 int currentQuantity = (int) item.getAmount();
                 currentQuantity++;
-                item.setAmount(currentQuantity); // 更新item的amount属性
+                item.setAmount(currentQuantity);
                 holder.binding.itemQuantity.setText(String.valueOf(currentQuantity));
                 updateQuantity(item.getId(), currentQuantity);
             }

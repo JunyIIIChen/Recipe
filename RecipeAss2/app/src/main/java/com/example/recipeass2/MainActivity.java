@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
         // Create and set PeriodicWorkRequest
         PeriodicWorkRequest uploadWorkRequest =
                 new PeriodicWorkRequest.Builder(UploadWorker.class, 24, TimeUnit.HOURS)
-                        .setInitialDelay(delay, TimeUnit.MILLISECONDS)  // 设置初始延迟
-                        .setConstraints(constraints)  // 设置约束
+                        .setInitialDelay(delay, TimeUnit.MILLISECONDS)
+                        .setConstraints(constraints)
                         .build();
 
         // Add to WorkManager

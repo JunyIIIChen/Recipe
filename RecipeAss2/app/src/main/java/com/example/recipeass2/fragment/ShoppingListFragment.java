@@ -1,5 +1,7 @@
 package com.example.recipeass2.fragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,8 @@ public class ShoppingListFragment extends Fragment {
     //current screen name
     private final String CURRENT_SCREEN_NAME = "Shopping list";
 
+    private String userEmail;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +51,10 @@ public class ShoppingListFragment extends Fragment {
                 .fallbackToDestructiveMigration()
                 .build();
 
+        // Get the current user's email
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
+        userEmail = sharedPreferences.getString("email", "");
+
         // Initialize ViewModel
         shoppingListViewModel = new ViewModelProvider(this).get(ShoppingListViewModel.class);
 
@@ -57,8 +65,8 @@ public class ShoppingListFragment extends Fragment {
         adapter = new ShoppingListAdapter(new ArrayList<>(), db);
         binding.shopListRecyclerview.setAdapter(adapter);
 
-        // Observe shopping list items
-        shoppingListViewModel.getAllShoppingListItems().observe(getViewLifecycleOwner(), new Observer<List<ShoppingListItem>>() {
+        // Observe shopping list items for the current user
+        shoppingListViewModel.getShoppingListItemsForUser(userEmail).observe(getViewLifecycleOwner(), new Observer<List<ShoppingListItem>>() {
             @Override
             public void onChanged(List<ShoppingListItem> shoppingListItems) {
                 adapter.notifyDataSetChanged();
@@ -83,9 +91,9 @@ public class ShoppingListFragment extends Fragment {
 //        });
 //    }
 
-    private void clearShopList(){
+    private void clearShopList() {
         binding.clearShopListButton.setOnClickListener(view -> {
-            shoppingListViewModel.deleteAllShoppingListItems();
+            shoppingListViewModel.deleteAllShoppingListItemsForUser(userEmail);
             Toast.makeText(getActivity(), "Shopping list cleared.", Toast.LENGTH_SHORT).show();
         });
     }

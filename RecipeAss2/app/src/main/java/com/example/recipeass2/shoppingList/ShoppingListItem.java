@@ -18,6 +18,9 @@ public class ShoppingListItem {
     @ColumnInfo(name = "unit")
     private String unit;
 
+    @ColumnInfo(name = "user_email")
+    private String userEmail;
+
     public int getId() {
         return id;
     }
@@ -48,5 +51,13 @@ public class ShoppingListItem {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

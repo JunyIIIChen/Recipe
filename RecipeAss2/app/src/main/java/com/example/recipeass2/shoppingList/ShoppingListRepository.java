@@ -54,4 +54,28 @@ public class ShoppingListRepository {
             return null;
         }
     }
+
+    public LiveData<List<ShoppingListItem>> getShoppingListItemsForUser(String userEmail) {
+        return shoppingListItemDao.getShoppingListItemsByUserEmail(userEmail);
+    }
+
+    public void deleteAllShoppingListItemsForUser(String userEmail) {
+        new DeleteAllForUserAsyncTask(shoppingListItemDao, userEmail).execute();
+    }
+
+    private static class DeleteAllForUserAsyncTask extends AsyncTask<Void, Void, Void> {
+        private ShoppingListItemDao asyncTaskDao;
+        private String userEmail;
+
+        DeleteAllForUserAsyncTask(ShoppingListItemDao dao, String userEmail) {
+            this.asyncTaskDao = dao;
+            this.userEmail = userEmail;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            asyncTaskDao.deleteAllForUser(userEmail);
+            return null;
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.recipeass2.database;
 
 import android.content.Context;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.work.Worker;
 import androidx.work.WorkerParameters;
@@ -25,6 +27,9 @@ public class UploadWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+        // Print the current timestamp and the method name
+        Log.d("UploadWorker", "doWork: " + System.currentTimeMillis());
+
         // Get the UserDao
         UserDao userDao = AppDatabase.getDatabase(getApplicationContext()).userDao();
 
@@ -51,7 +56,7 @@ public class UploadWorker extends Worker {
             }
 
             // Get the user's shopping list items
-            List<ShoppingListItem> shoppingListItems = shoppingListItemDao.getAllShoppingListItemsDirect(); // Modify this line according to your ShoppingListItemDao methods
+            List<ShoppingListItem> shoppingListItems = shoppingListItemDao.getShoppingListItemsByUserEmailDirect(user.getEmail());
             // Add or update the user's shopping list items
             for (ShoppingListItem item : shoppingListItems) {
                 usersRef.child(emailPath).child("shoppingList").child(String.valueOf(item.getId())).setValue(item);

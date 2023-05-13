@@ -27,4 +27,13 @@ public interface ShoppingListItemDao {
     void updateAmount(int itemId, int newAmount);
     @Query("DELETE FROM shopping_list_items")
     void deleteAll();
+
+    @Query("SELECT * FROM shopping_list_items WHERE user_email = :userEmail")
+    List<ShoppingListItem> getShoppingListItemsByUserEmailDirect(String userEmail);
+
+    @Query("SELECT * FROM shopping_list_items WHERE user_email = :userEmail")
+    LiveData<List<ShoppingListItem>> getShoppingListItemsByUserEmail(String userEmail);
+
+    @Query("DELETE FROM shopping_list_items WHERE user_email = :userEmail")
+    void deleteAllForUser(String userEmail);
 }
