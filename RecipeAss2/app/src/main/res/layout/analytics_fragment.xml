@@ -30,13 +30,24 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/chart_type_spinner"
+            <RadioGroup
+                android:id="@+id/chart_type_radio_group"
                 android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_margin="10dp"
-                android:background="#FF9800"
-                android:entries="@array/chart_types" />
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_pie_chart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pie Chart"/>
+
+                <RadioButton
+                    android:id="@+id/radio_bar_chart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bar Chart"/>
+            </RadioGroup>
 
             <Spinner
                 android:id="@+id/date_spinner"

@@ -46,7 +46,9 @@ public class RecipeActivity extends AppCompatActivity {
 
     private UserDao userDao;
 
-    private static final String API_KEY = "c92ff870e8ae441ba53380608f13ed3c";
+    private static final String API_KEY = "2f820b3f3e334125ba9b5d7e192dcd24";
+    // 2f820b3f3e334125ba9b5d7e192dcd24
+    // c92ff870e8ae441ba53380608f13ed3c
     private static final String BASE_URL = "https://api.spoonacular.com/";
 
     @Override

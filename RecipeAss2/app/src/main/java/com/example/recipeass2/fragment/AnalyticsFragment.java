@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import androidx.annotation.Nullable;
@@ -79,20 +81,14 @@ public class AnalyticsFragment extends Fragment {
         binding = AnalyticsFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        chartTypeSpinner = binding.chartTypeSpinner;
-        setUpChartTypeSpinner();
-
         dateSpinner = binding.dateSpinner;
         setDateSpinner();
-
 
         // Get a reference to the UserDao
         userDao = AppDatabase.getDatabase(getContext()).userDao();
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         userEmail = sharedPreferences.getString("email", "");
-
-
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -110,6 +106,30 @@ public class AnalyticsFragment extends Fragment {
             }
         });
 
+        RadioGroup chartTypeRadioGroup;
+        RadioButton radioPieChart, radioBarChart;
+
+        chartTypeRadioGroup = binding.chartTypeRadioGroup;
+        radioPieChart = binding.radioPieChart;
+        radioBarChart = binding.radioBarChart;
+
+        chartTypeRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_pie_chart:
+                        pieChart.setVisibility(View.VISIBLE);
+                        barChart.setVisibility(View.GONE);
+                        setPieChart(favoriteRecipes);
+                        break;
+                    case R.id.radio_bar_chart:
+                        pieChart.setVisibility(View.GONE);
+                        barChart.setVisibility(View.VISIBLE);
+                        setBarChart(favoriteRecipes);
+                        break;
+                }
+            }
+        });
 
 
         //set current screen name to the top nav bar
@@ -287,41 +307,5 @@ public class AnalyticsFragment extends Fragment {
             setPieChart(filteredRecipes);
             setBarChart(filteredRecipes);
         }
-    }
-
-
-
-
-
-    private void setUpChartTypeSpinner() {
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(requireContext(),
-                R.array.chart_types, android.R.layout.simple_spinner_item);
-
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        chartTypeSpinner.setAdapter(adapter);
-
-        chartTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        pieChart.setVisibility(View.VISIBLE);
-                        barChart.setVisibility(View.GONE);
-                        setPieChart(favoriteRecipes);
-                        break;
-                    case 1:
-                        pieChart.setVisibility(View.GONE);
-                        barChart.setVisibility(View.VISIBLE);
-                        setBarChart(favoriteRecipes);
-                        break;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 }
