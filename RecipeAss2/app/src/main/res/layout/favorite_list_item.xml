@@ -13,24 +13,26 @@
         android:layout_width="294dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/recipe_image"
-            android:layout_width="132dp"
-            android:layout_height="150dp"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/error_placeholder" />
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/recipe_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:text="recipe_name" />
+
+        <TextView
+            android:id="@+id/recipe_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="20dp"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:text="recipe_name" />
+            android:textSize="15dp"
+            android:layout_margin="10dp"
+            android:text="type" />
     </LinearLayout>
 
 </LinearLayout>

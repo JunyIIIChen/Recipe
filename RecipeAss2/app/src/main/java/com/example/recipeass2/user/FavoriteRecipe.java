@@ -1,5 +1,7 @@
 package com.example.recipeass2.user;
 
+import android.media.Image;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -16,6 +18,7 @@ public class FavoriteRecipe {
 
     @ColumnInfo(name = "saved_recipe_type")
     private String type;
+
 
     @ColumnInfo(name = "like_timestamp")
     private long likeTimestamp;
