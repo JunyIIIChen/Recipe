@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_nearest_shop"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:accessibilityHeading="false"
     android:orientation="vertical"
-
     android:rotationX="0">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical"
-
-        >
+        android:gravity="top"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/login_bgi"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:background="@drawable/rounded_login_background"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="220dp"
+        android:elevation="30dp"
+        android:outlineProvider="background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/loginTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-
-            >
-
-            <TextView
-                android:id="@+id/loginTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="LocalEats"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textColor="#000000"
-                android:textIsSelectable="false"
-                android:textSize="34sp"
-                android:textStyle="bold|italic" />
+            android:gravity="center"
+            android:text="LocalEats"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="#000000"
+            android:textIsSelectable="false"
+            android:textSize="34sp"
+            android:textStyle="bold|italic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,6 +101,5 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
 
-</LinearLayout>
