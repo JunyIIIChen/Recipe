@@ -16,9 +16,6 @@ public class UserRepository {
         userDao = db.userDao();
     }
 
-
-
-
     // User related operations
     public void insert(User user) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
@@ -42,10 +39,6 @@ public class UserRepository {
         return userDao.getUserByEmail(email);
     }
 
-
-
-
-
     // FavoriteRecipe related operations
     public long insert(FavoriteRecipe favoriteRecipe) {
         return userDao.insert(favoriteRecipe);
@@ -61,10 +54,6 @@ public class UserRepository {
         });
     }
 
-
-
-
-
     // UserFavoriteRecipeCrossRef related operations
     public void insert(UserFavoriteRecipeCrossRef crossRef) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
@@ -74,7 +63,7 @@ public class UserRepository {
 
     public void deleteFavoriteRecipe(String userEmail, int recipeId) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            userDao.delete(userEmail, recipeId);
+            userDao.deleteFavoriteRecipe(userEmail, recipeId);
         });
     }
 

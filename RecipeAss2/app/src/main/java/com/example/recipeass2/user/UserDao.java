@@ -45,7 +45,7 @@ public interface UserDao {
     void insert(UserFavoriteRecipeCrossRef crossRef);
 
     @Query("DELETE FROM user_favorite_recipe_table WHERE userEmail = :userEmail AND recipeId = :recipeId")
-    void delete(String userEmail, int recipeId);
+    void deleteFavoriteRecipe(String userEmail, int recipeId);
 
     @Transaction
     @Query("SELECT * FROM user_table WHERE email = :userEmail")
@@ -57,5 +57,6 @@ public interface UserDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertOrUpdate(User user);
+
 }
 
