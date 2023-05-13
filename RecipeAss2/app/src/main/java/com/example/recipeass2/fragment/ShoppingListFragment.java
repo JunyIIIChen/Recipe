@@ -85,11 +85,7 @@ public class ShoppingListFragment extends Fragment {
         return view;
     }
 
-//    private void goBackPrevScreen(){
-//        binding.topBar.goBackButton.setOnClickListener(view -> {
-//            // ...
-//        });
-//    }
+
 
     private void clearShopList() {
         binding.clearShopListButton.setOnClickListener(view -> {

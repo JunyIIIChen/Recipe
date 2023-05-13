@@ -20,6 +20,10 @@
         android:title="Analytics" />
 
     <item
+        android:id="@+id/nav_favorite_fragment"
+        android:title="Favorite Recipe" />
+
+    <item
         android:id="@+id/nav_map_fragment"
         android:title="Map" />
 
