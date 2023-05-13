@@ -24,7 +24,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.databinding.ActivityShareFacebookBinding;
+import com.example.recipeass2.recipe.RecipeActivity;
 import com.facebook.*;
 import com.facebook.AccessToken;
 import com.facebook.FacebookException;
@@ -176,7 +178,12 @@ public class ShareFacebookActivity extends FragmentActivity {
                     }
                 });
 
-
+        binding.returnButton.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        startActivity(new Intent(ShareFacebookActivity.this, MainActivity.class));
+                    }
+                });
 
         // Can we present the share dialog for regular links?
         canPresentShareDialog = ShareDialog.canShow(ShareLinkContent.class);

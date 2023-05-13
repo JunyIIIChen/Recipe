@@ -47,6 +47,12 @@
                 android:text="Post Status Update"
                 />
 
+            <Button
+                android:id="@+id/returnButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="return to home"
+                />
 
         </LinearLayout>
     </LinearLayout>
