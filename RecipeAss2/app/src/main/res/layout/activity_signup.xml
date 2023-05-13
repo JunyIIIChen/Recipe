@@ -138,7 +138,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center|top"
+                android:layout_marginTop="30dp"
+                android:gravity="center|bottom"
                 android:orientation="horizontal">
 
                 <Button
