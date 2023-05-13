@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="176dp"
-    android:background="@drawable/side_nav_bar"
+    android:layout_height="220dp"
+    android:background="@drawable/dessert"
     android:gravity="bottom"
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
@@ -12,9 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="LocalEats"
-        android:textSize="40dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         android:textColor="@android:color/black"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+        android:textSize="40dp" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

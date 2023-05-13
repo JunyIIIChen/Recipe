@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecipeAss2</string>
+    <string name="app_name">LocalEats</string>
     <string name="enterAccount">Enter your account</string>
     <string name="enterPassword">Enter your password</string>
     <string name="registration">Registration</string>
