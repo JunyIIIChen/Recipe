@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.example.recipeass2.MainActivity;
 import com.example.recipeass2.R;
 import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ActivityRecipeBinding;
+import com.example.recipeass2.facebook.ShareFacebookActivity;
+import com.example.recipeass2.facebook.TempPhoto;
 import com.example.recipeass2.search.Recipe;
 
 import java.util.ArrayList;
@@ -65,6 +69,23 @@ public class RecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        binding.shareToFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TempPhoto.image = createBitmap(getWindow().getDecorView());
+//                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//                image.compress(Bitmap.CompressFormat.PNG, 10, stream);
+//                byte[] byteArray = stream.toByteArray();
+                Intent intent = new Intent(RecipeActivity.this, ShareFacebookActivity.class);
+//                intent.putExtra("share screen", byteArray);
+//                try {
+//                    stream.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
+                startActivity(intent);
             }
         });
 
@@ -166,5 +187,10 @@ public class RecipeActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Failed to like the recipe.", Toast.LENGTH_SHORT).show();
         }
+    }
+    private Bitmap createBitmap(View view) {
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
     }
 }
