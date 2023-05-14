@@ -48,6 +48,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
@@ -294,10 +295,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             mMap.addMarker(new MarkerOptions().position(supermarketLatLng).title(name));
                         }
 
-                        mMap.addMarker(new MarkerOptions().
-                                position(home).
-                                title("Home").
-                                icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
+                        // Creating a marker on the map
+                        MarkerOptions options = new MarkerOptions().position(home).title("Home").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
+                        Marker marker = mMap.addMarker(options);
+                        marker.showInfoWindow();
+
+
 
                         // Update the adapter with the fetched data
                         adapter.updateData(supermarkets);
