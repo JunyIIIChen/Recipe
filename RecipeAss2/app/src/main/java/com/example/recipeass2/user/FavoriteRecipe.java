@@ -23,6 +23,8 @@ public class FavoriteRecipe {
     @ColumnInfo(name = "like_timestamp")
     private long likeTimestamp;
 
+    // Empty constructor required for Firebase
+    public FavoriteRecipe() {}
     // Constructor, getters and setters
     public FavoriteRecipe(String name, String type, long likeTimestamp) {
         this.name = name;

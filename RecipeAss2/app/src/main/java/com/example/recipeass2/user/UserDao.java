@@ -32,7 +32,7 @@ public interface UserDao {
 //    @Query("SELECT * FROM user_table WHERE email = :email")
 //    User getUserByEmailDirect(String email);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(FavoriteRecipe favoriteRecipe); // This method returns the new rowId for the inserted item.
 
     @Query("SELECT * FROM favorite_recipe_table WHERE saved_recipe_id = :id")
@@ -41,7 +41,7 @@ public interface UserDao {
     @Delete
     void delete(FavoriteRecipe favoriteRecipe);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(UserFavoriteRecipeCrossRef crossRef);
 
     @Query("DELETE FROM user_favorite_recipe_table WHERE userEmail = :userEmail AND recipeId = :recipeId")

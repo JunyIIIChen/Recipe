@@ -19,7 +19,7 @@ public class UserRepository {
     // User related operations
     public void insert(User user) {
         AppDatabase.databaseWriteExecutor.execute(() -> {
-            userDao.insert(user);
+            userDao.insertOrUpdate(user);
         });
     }
 

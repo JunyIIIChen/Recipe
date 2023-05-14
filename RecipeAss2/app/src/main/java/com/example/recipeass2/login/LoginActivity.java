@@ -21,8 +21,11 @@ import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ActivityLoginBinding;
 
 import com.example.recipeass2.signup.SignupActivity;
+import com.example.recipeass2.user.FavoriteRecipe;
 import com.example.recipeass2.user.User;
 import com.example.recipeass2.user.UserDao;
+import com.example.recipeass2.user.UserFavoriteRecipeCrossRef;
+import com.example.recipeass2.user.UserRepository;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
@@ -49,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
+        Log.d("LoginActivity", "Initializing Firebase");
         FirebaseApp.initializeApp(this);
 
         auth = FirebaseAuth.getInstance();
@@ -75,13 +79,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String txt_email, String txt_pwd) {
+        Log.d("LoginActivity", "Attempting to log in user " + txt_email);
         if (TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_pwd)) {
             toastMsg("Please enter both email and password");
             return;
         }
 
         // Get the UserDao
-        UserDao userDao = AppDatabase.getDatabase(getApplicationContext()).userDao();
+        UserRepository userRepository = new UserRepository(getApplication());
 
         // Get the Firebase instance
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -95,13 +100,31 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     // The user exists in Firebase Database, get the user data
+                    Log.d("LoginActivity", "User exists in Firebase Database, getting data");
                     User user = snapshot.getValue(User.class);
                     if (user != null) {
                         // Insert the user data into Room database
                         Executors.newSingleThreadExecutor().execute(() -> {
-                            userDao.insertOrUpdate(user);
+                            userRepository.insert(user);
+
+                            // Get the favoriteRecipes DataSnapshot
+                            DataSnapshot favoriteRecipesSnapshot = snapshot.child("favoriteRecipes");
+                            for (DataSnapshot recipeSnapshot : favoriteRecipesSnapshot.getChildren()) {
+                                // Get the favorite recipe data
+                                FavoriteRecipe favoriteRecipe = recipeSnapshot.getValue(FavoriteRecipe.class);
+                                if (favoriteRecipe != null) {
+                                    // Insert favorite recipe into Room database and get generated id
+                                    long id = userRepository.insert(favoriteRecipe);
+
+                                    // Create a UserFavoriteRecipeCrossRef and insert into Room database
+                                    UserFavoriteRecipeCrossRef crossRef = new UserFavoriteRecipeCrossRef(user.getEmail(), (int) id);
+                                    userRepository.insert(crossRef);
+                                }
+                            }
                         });
                     }
+                } else {
+                    Log.d("LoginActivity", "User does not exist in Firebase Database");
                 }
 
                 // Proceed the Firebase Authentication
@@ -144,6 +167,4 @@ public class LoginActivity extends AppCompatActivity {
     private void toastMsg(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
-
-
 }
