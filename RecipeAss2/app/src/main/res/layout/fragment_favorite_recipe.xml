@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.FavoriteRecipeFragment"
+    android:background="#FF5722"
     >
 
 
@@ -16,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_login_background"
             android:orientation="vertical">
 
             <ProgressBar
@@ -36,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
