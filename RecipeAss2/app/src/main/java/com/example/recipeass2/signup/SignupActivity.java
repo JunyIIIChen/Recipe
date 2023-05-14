@@ -47,7 +47,7 @@ public class SignupActivity extends AppCompatActivity {
                 String street = binding.streetEditText.getText().toString();
                 String postcode = binding.postcodeEditText.getText().toString();
 
-                String msg = "";
+                String msg = "Successful Registered";
                 if (TextUtils.isEmpty(email_txt) ||
                         TextUtils.isEmpty(password_txt)) {
                     msg = "Empty Username or Password";
