@@ -1,6 +1,5 @@
 package com.example.recipeass2.login;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,8 +20,6 @@ import com.example.recipeass2.R;
 import com.example.recipeass2.database.AppDatabase;
 import com.example.recipeass2.databinding.ActivityLoginBinding;
 
-import com.example.recipeass2.fragment.HomeFragment;
-import com.example.recipeass2.search.SearchRecipeActivity;
 import com.example.recipeass2.signup.SignupActivity;
 import com.example.recipeass2.user.User;
 import com.example.recipeass2.user.UserDao;
@@ -31,7 +28,6 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
