@@ -3,13 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FF5722"
+    >
 
     <EditText
         android:id="@+id/search_edittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="Search"
+        android:background="@color/white"
         android:imeOptions="actionSearch"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,6 +22,8 @@
         android:id="@+id/search_results_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_login_background"
         app:layout_constraintTop_toBottomOf="@id/search_edittext"
         app:layout_constraintBottom_toBottomOf="parent" />
 

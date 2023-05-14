@@ -9,17 +9,15 @@
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="60dp"
+        android:paddingLeft="10dp"
         android:text="LocalEats"
+        android:background="@drawable/nav_head"
+        android:elevation="10dp"
+        android:paddingRight="10dp"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-        android:textColor="@android:color/black"
+        android:textColor="@color/white"
         android:textSize="40dp" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
-        android:text="select from the menu" />
 </LinearLayout>
