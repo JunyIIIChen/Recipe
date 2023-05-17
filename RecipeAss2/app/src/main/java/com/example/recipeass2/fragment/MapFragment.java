@@ -61,39 +61,45 @@ import java.util.List;
 import java.util.Locale;
 
 
+/**
+ * MapFragment is a Fragment that displays a Google Map showing the user's current location,
+ * as well as nearby supermarkets. It uses the Google Maps API, and also the Google Places API
+ * to search for nearby supermarkets.
+ */
+
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
+    // Data binding
     private FragmentMapBinding binding;
 
+    // Google Map
     private MapView mapView;
-
     private GoogleMap mMap;
 
+    // Request code for location permission
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
-    private ProgressBar progressBarMap; // Progress bar
-    private ProgressBar progressBarShop; // Progress bar
+    // Progress bars to indicate loading
+    private ProgressBar progressBarMap;
+    private ProgressBar progressBarShop;
 
-
-
+    // Location provider
     private FusedLocationProviderClient fusedLocationClient;
-
     private LocationCallback locationCallback;
 
+    // Constants
     private final String CURRENT_SCREEN_NAME = "Nearest Shop";
+    private static final int PLACE_RADIUS = 1000; // 1km radius for place search
+    private static final String PLACE_TYPE = "supermarket"; // Type of place to search for
 
-    private static final int PLACE_RADIUS = 1000; // 1km radius
-    private static final String PLACE_TYPE = "supermarket";
-
+    // User's address
     private String location = "";
-
     LatLng home;
 
-    public MapFragment() {
-        // Required empty public constructor
-    }
+    // Required empty public constructor
+    public MapFragment() {}
 
-
+    // Method to create a new instance of this fragment
     public static MapFragment newInstance(String param1, String param2) {
         MapFragment fragment = new MapFragment();
         Bundle args = new Bundle();
@@ -108,7 +114,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
 
     }
-
+    // Inflate the layout for this fragment, set up the map view and load user's location
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,7 +123,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mapView = binding.mapView;
         mapView.onCreate(savedInstanceState);
-
+        // Initialize progress bars and set them to visible
         progressBarMap = binding.mapProgressBar; //
         progressBarMap.setVisibility(View.VISIBLE); // Show progress bar
         progressBarShop = binding.shopListProgressBar;
@@ -125,12 +131,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapView.getMapAsync(this);
 
 
-
-
         setLocation();
 
         return binding.getRoot();
     }
+    // Load user's location from shared preferences
 
     private void setLocation(){
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("user_info",
@@ -139,7 +144,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         String email = sharedPreferences.getString("email", null);
         // Get the UserDao
         UserDao userDao = AppDatabase.getDatabase(getContext().getApplicationContext()).userDao();
-
+        // Observe changes in the user's data
         LiveData<User> liveDataUser = userDao.getUserByEmail(email);
 
 
@@ -155,14 +160,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
-
+    // Called when the map is ready to use
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        // Hide progress bar
         progressBarMap.setVisibility(View.GONE);
         requestLocationPermission();
     }
-
+    // Get the LatLng from a location address
     private LatLng getLocationFromAddress() {
         Geocoder coder = new Geocoder(getContext(), Locale.getDefault());
         List<Address> address;
@@ -185,6 +191,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         return p1;
     }
+    // Request location permission
 
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
@@ -196,7 +203,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             getCurrentLocation();
         }
     }
-
+    // Handle result of location permission request
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -209,7 +216,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
+    // Get the current location of the device
     private void getCurrentLocation() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
@@ -228,12 +235,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     for (Location location : locationResult.getLocations()) {
                         if (location != null) {
 
-
+                            // Get LatLng from address
                             home = getLocationFromAddress();
 
+                            // Move camera to user's location
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(home, 15));
 
-
+                            // Stop location updates
                             fusedLocationClient.removeLocationUpdates(locationCallback);
 
                             // Search for nearby supermarkets
@@ -248,7 +256,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-
+    // Find nearby supermarkets using the Google Places API
     private void findNearbySupermarkets(LatLng userLatLng) {
         // Clear existing markers
         mMap.clear();
@@ -280,7 +288,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             JSONObject result = results.getJSONObject(i);
                             String name = result.getString("name");
                             String address = result.getString("vicinity");
-                            String phone = ""; // You can retrieve the phone number if available
+                            String phone = "";
 
                             supermarkets.add(new Supermarket(name, address, phone));
 
@@ -318,7 +326,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         requestQueue.add(request);
     }
 
-
+    // Lifecycle methods to manage the MapView
     @Override
     public void onResume() {
         super.onResume();
